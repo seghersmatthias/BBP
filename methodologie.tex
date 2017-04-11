@@ -11,5 +11,47 @@
 %% mogelijke manier toegepast hebt om een antwoord te vinden op de
 %% onderzoeksvraag.
 
-\lipsum[21-25]
+
+\section{Keuze algoritmen}
+\label{sec:keuze-algoritmen}
+Om goede resultaten te behalen is het uiterst belangrijk dat de juiste algoritmen gebruikt worden. Zo zijn er bepaalde algoritmen die helemaal niet bruikbaar zouden kunnen zijn voor deze casus. Er zal hier verder uitgelegd worden hoe we een mogelijk algoritme kunnen vinden.
+
+\subsection{Superviseerd vs Ongesuperviseerd leren}
+\label{sec: superviseerd-vs-ongesuperviseerd-leren}
+Machine learning kan onderverdeelt worden in verschillende types van algoritmen. Deze zijn gesuperviseerd leren, ongesuperviseed leren en reinforcement leren. Dit laatste type is niet van toepassing voor deze casus. Met dit type wordt er geleerd op basis van positieve signalen (beloningen). Er wordt ook niet gebaseerd op een dataset en aangezien wij in bezit zijn van datasets is dit type overbodig om verder te onderzoeken. 
+
+\subsubsection*{Superviseerd leren}
+\label{sec: superviseerd-leren}
+Dit type heeft als doel om een hypothese te bekomen die dan zal kunnen gebruikt worden om nieuwe ongekende input toe te wijzen aan een label die voorkwam in de eerdere trainingsdataset. De trainingsdataset bestaat uit verschillende parameters en een label. Onder dit type kan je algoritmen vinden die voor zowat alle cases gebruikt kunnen worden. Deze zijn echter wel nog opgedeeld in drie verschillende categorieën. Zo kan je een nieuwe waarde voorspellen op basis van vroegere resultaten, dit wordt regressie genoemd. Verder heb je classificatiealgoritmen hiermee kan een input toegewezen worden aan een bepaalde klasse met een label. En als laatste bestaan er clusteringsalgoritmen hiermee kan je ook onderverdelingen maken in klassen maar deze hebben geen label. Clustering en classificatie lijken op elkaar maar met classificatie weet een onderzoeker ook precies wat de data voorstelt. 
+
+\subsubsection*{Ongesuperviseerd leren}
+\label{sec: ongesuperviseerd-leren}
+Verschillend met gesuperviseerd leren beschikt een ongesuperviseerd algoritme over een ongelabelde dataset. Er zijn verschillende inputs maar die behoren niet tot een specifieke klasse. De meest gebruikte techniek is dus clustering. Als we dit bekijken voor deze casus is dit geen optimale manier. We kunnen wel bepaalde besturingsevents clusteren waardoor je tot een x aantal clusters kan komen maar we hebben geen idee of de ene cluster Pac-Man of Mortal Combat is bijvoorbeeld. 
+
+
+\textbf{\underline{{\Large misschien een voorbeeldje uitwerken? }}}
+
+\section{Gesuperviseerde classificatie algoritmen}
+\label{sec:gesuperviseerde-classificatie-algoritmen}
+
+In deze casus beschikken we over een gelabelde dataset. Het doel is om met een gegeven input een concreet spel te krijgen als output. Gesuperviseerde classificatiealgoritmen zijn dus de meest geschikte voor deze in dit onderzoek.Doordat we een gelabelde dataset hebben en er moeten verdelingen gemaakt worden op basis van labels. Op deze manier kunnen we ongekende input plaatsen bij één bepaald spel.
+
+\subsection{Logistische regressie}
+\label{sec:logistische-regressie}
+
+Logistische regressie is het eerste algoritme die we zullen bespreken in deze bachelorproef. Zoals u uit de naam kan afleiden maakt dit algoritme gebruik van een logistische functie. Aan de hand van een vergelijking kunnen er voorspellingen worden gemaakt. Gedurende het trainingsproces wordt deze vergelijking geoptimaliseerd. Er zullen meerdere spelletjes voorzien zijn op de arcademachine dus ook meerdere klassen. Omdat we van nul af aan starten zal ook de binaire logistische regressie gebruikt worden en vervolgens twee mogelijke methoden om met meerdere klassen te werken. 
+
+\subsubsection{Binaire logistische regressie}
+\label{sec:Binaire-logistische-regressie}
+Zoals de naam al doet vermoeden wordt met dit algoritme een classificatie gemaakt tussen twee klassen. 
+Er wordt gestart met een lineaire regressie als hypothese. De waarde $y$ zal altijd binnen de grenzen 0 en 1 liggen.  Door middel van de sigmoïdfunctie krijgen we altijd een waarde tussen 0 en 1 exclusief de grenzen. Het functievoorschrift is als volgt. 
+$$
+y(x) = {\frac{1}{1+e^{-x}}}
+$$
+
+
+
+
+
+
 
