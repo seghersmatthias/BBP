@@ -51,28 +51,48 @@ Het GameID 0 wijst op Pac-man en 1 is dan Mortal-Combat. Als u de rijen van Pac-
 
 Het eerste algoritme die we gaan testen is logistische regressie. In fase 1 gaan we slecht voorspellingen doen tussen twee verschillende spellen vandaar dat we binaire logistische regressie gaan toepassen die eerder uitgelegd is in sectie \ref{sec:Binaire-logistische-regressie}.
 
-metaparameters die ervoor zorgen dat een algoritme stopt
+In de code \ref{code:linaireRegressieTweeKlassen} ziet u de implementatie van de binaire logistische regressie. Er worden 2 parameter meegegeven in de functie, input en output. De input is een dubbele array van \textit{double} waarden. Daarin zitten rijen met 2 kolommen die de ButtonPresses en JoystickMovements bevatten. De ouput parameter bevat een enkele array die het GameID bevat. Hoe deze data ingelezen wordt kan u zien in de code \ref{code:dataInlezen}. Met een ExcelReader krijgen we een DataTable die we met de methode ToJagged kunnen omvormen naar ons gewenste dubbele array met de kolomnamen kunnen we de kolommen selecteren. Deze methode is onderdeel van het Accord-framework. 
 
+Wat de LearningRate precies inhoudt wordt later samen met gradient descent uitgelegd (dit zal bij het theoretische deel uitgelegd worden)
 
-
-
+%%Logistic regression code
+\begin{figure}[]
+	\renewcommand{\figurename}{Code}
 \begin{lstlisting}
 public static void StartLogisticRegression(double[][] input, int[] output)
 {
-       // Create a new Iterative Reweighted Least Squares algorithm
+       //LogisticRegression object initialiseren met 2 inputparameters (ButtonPresses & JoystickMovements)
        LogisticRegression logisticRegression = new LogisticRegression()
        {
        		NumberOfInputs = 2
        };
+       
       var learner = new LogisticGradientDescent(logisticRegression)
       {
-      		Iterations = 100,
       		LearningRate = 0.0001
       };
-            
-     // Now, we can use the learner to finally estimate our model:
+     
+     // De gradient descent begint met de logistische regressie te optimaliseren
      logisticRegression = learner.Learn(input, output);
-
 }
 
 \end{lstlisting}
+\caption{Implementatie binaire logistische regressie}
+\label{code:linaireRegressieTweeKlassen}
+\end{figure}
+%%Data inlezen
+\begin{figure}[]
+	\renewcommand{\figurename}{Code}
+	\begin{lstlisting}
+using (var table = new ExcelReader("../../datasetExcel.xls").GetWorksheet("Training"))
+   {
+       // Convert the DataTable to input and output vectors
+       double[][] inputs = table.ToJagged<double>("ButtonPresses", "Joystickmovements");
+       int[] outputs = table.Columns["Game"].ToArray<int>();
+       
+       ...
+   }
+	\end{lstlisting}
+	\caption{Inlezen Excel data}
+	\label{code:dataInlezen}
+\end{figure}
