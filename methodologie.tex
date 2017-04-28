@@ -20,13 +20,13 @@ Om goede resultaten te behalen is het uiterst belangrijk dat de juiste algoritme
 \label{sec: superviseerd-vs-ongesuperviseerd-leren}
 Machine learning kan onderverdeelt worden in verschillende types van algoritmen. Deze zijn gesuperviseerd leren, ongesuperviseed leren en reinforcement leren. Dit laatste type is niet van toepassing voor deze casus. Met dit type wordt er geleerd op basis van positieve signalen (beloningen). Er wordt ook niet gebaseerd op een dataset en aangezien wij in bezit zijn van datasets is dit type overbodig om verder te onderzoeken. 
 
-\subsubsection*{Superviseerd leren}
+\subsection*{Superviseerd leren}
 \label{sec: superviseerd-leren}
 Dit type heeft als doel om een hypothese te bekomen die dan zal kunnen gebruikt worden om nieuwe ongekende input toe te wijzen aan een label die voorkwam in de eerdere trainingsdataset. De trainingsdataset bestaat uit verschillende parameters en een label. Onder dit type kan je algoritmen vinden die voor zowat alle cases gebruikt kunnen worden. Deze zijn echter wel nog opgedeeld in drie verschillende categorieën. Zo kan je een nieuwe waarde voorspellen op basis van vroegere resultaten, dit wordt regressie genoemd. Verder heb je classificatiealgoritmen hiermee kan een input toegewezen worden aan een bepaalde klasse met een label. En als laatste bestaan er clusteringsalgoritmen hiermee kan je ook onderverdelingen maken in klassen maar deze hebben geen label. Clustering en classificatie lijken op elkaar maar met classificatie weet een onderzoeker ook precies wat de data voorstelt. 
 
-\subsubsection*{Ongesuperviseerd leren}
+\subsection*{Ongesuperviseerd leren}
 \label{sec: ongesuperviseerd-leren}
-Verschillend met gesuperviseerd leren beschikt een ongesuperviseerd algoritme over een ongelabelde dataset. Er zijn verschillende inputs maar die behoren niet tot een specifieke klasse. De meest gebruikte techniek is dus clustering. Als we dit bekijken voor deze casus is dit geen optimale manier. We kunnen wel bepaalde besturingsevents clusteren waardoor je tot een x aantal clusters kan komen maar we hebben geen idee of de ene cluster Pac-Man of Mortal Combat is bijvoorbeeld. 
+Verschillend met gesuperviseerd leren beschikt een ongesuperviseerd algoritme over een ongelabelde dataset. Er zijn verschillende inputs maar die behoren niet tot een specifieke klasse. De meest gebruikte techniek is dus clustering. Als we dit bekijken voor deze casus is dit geen optimale manier. We kunnen wel bepaalde besturingsevents clusteren waardoor je tot een x aantal clusters kan komen maar we hebben geen idee of de ene cluster PacMan of Mortal Combat is bijvoorbeeld. 
 
 
 \textbf{\underline{{\Large misschien een voorbeeldje uitwerken? }}}
@@ -34,7 +34,10 @@ Verschillend met gesuperviseerd leren beschikt een ongesuperviseerd algoritme ov
 \section{Gesuperviseerde classificatie algoritmen}
 \label{sec:gesuperviseerde-classificatie-algoritmen}
 
-In deze casus beschikken we over een gelabelde dataset. Het doel is om met een gegeven input een concreet spel te krijgen als output. Gesuperviseerde classificatiealgoritmen zijn dus de meest geschikte voor deze in dit onderzoek.Doordat we een gelabelde dataset hebben en er moeten verdelingen gemaakt worden op basis van labels. Op deze manier kunnen we ongekende input plaatsen bij één bepaald spel.
+In deze casus beschikken we over een gelabelde dataset. Het doel is om met een gegeven input een concreet spel te krijgen als output. Gesuperviseerde classificatiealgoritmen zijn dus de meest geschikte voor deze in dit onderzoek. Doordat we een gelabelde dataset hebben en er moeten verdelingen gemaakt worden op basis van labels. Op deze manier kunnen we ongekende input plaatsen bij één bepaald spel.
+
+
+
 
 \subsection{Logistische regressie}
 \label{sec:logistische-regressie}
@@ -50,9 +53,104 @@ y(x) = {\frac{1}{1+e^{-x}}}
 $$
 Theorie moet nog verder uitgewerkt worden
 
+
+
+
+
 \subsubsection{Multiklasse logistische regressie}
 \label{sec:Multiklasse-logistische-regressie}
+Wat u uit de naam al kan afleiden is dat dit een algoritme is om een classificatie te maken over meerdere klassen. Dit kan op twee methoden gedaan worden. De one-vs-one methode of de one-vs-rest(/all) methode. 
+\subparagraph{One-vs-all}
+Dit is de gemakkelijkste van de twee methoden. Zoals de naam al doet vermoeden vergelijken we één klasse tegenover alle andere klassen. Als er \textit{n} aantal klassen zijn dan zullen er \textit{n} hypothesen $h^{(k)}$ met $k \in \{pacman, mortal combat, tetris, ..\}$ gemaakt worden. \textit{k} is dan de positieve klasse en alle andere klassen samen is dan één negatieve klasse. \newline
+Voor een nieuwe input \textit{x} die moet geclassificeerd worden gaat de methode als volgt te werk. $h^{(k)} (x)$ geeft een waarde terug die de waarschijnlijkheid uitdrukt dat x tot de klasse \textit{k} behoort. Dit wordt voor alle \textit{n} hypothesen gedaan. De klasse met de hoogste waarschijnlijkheid wordt dan logischerwijs gekozen als de voorspelde klasse waar \textit{x} toe behoort. 
+\subparagraph{One-vs-one}
+Met deze techniek vergelijken we twee klassen met elkaar zoals we gezien hebben in sectie \ref{sec:Binaire-logistische-regressie} binaire logistische regressie. Er wordt dus opnieuw meerdere hypothesen gemaakt maar anders dan in one-vs-all worden er nu combinaties van twee klassen gebruikt wat er zo uitziet $h^{(k,m)}$. \textit{k} is in dit geval de positieve klasse en \textit{m} de negatieve. In totaal zullen er n(n-1)/2 hypothesen gemaakt worden.
+om te bepalen onder welke klasse een nieuwe input \textit{x} hoort berekenen we $h^{(k,m)}(x)$ wanneer het resultaat $\geq 0.5$ krijgt de positieve klasse (\textit{k}) een "punt". Dit gebeurt voor alle hypothesen en de klasse met het meest aantal punten zal uiteindelijk het resultaat zijn van het algoritme. 
+
+\subsubsection{Optimaliseren van algoritme}
+\label{sec:Optimaliseren-algoritme}
+Om een zo optimaal mogelijk algoritme te verkrijgen moet er gebruik gemaakt worden van optimalisatietechnieken. Gradiënt descent is zo'n techniek die de parameters $\theta$ optimaliseert om een zo'n correct mogelijke hypothese te krijgen. Voordat gradient descent besproken wordt gaan we eerst de kostfunctie bespreken. 
+
+\paragraph{Kostfunctie logistische regressie}
+\label{par:kostfunctie-log}
+Een kostfunctie wordt genoteerd als $J(\theta)$. Die functie drukt de gemiddelde kost van de trainingsset met parameters $\theta$ uit. Aan de hand van gradient descent is het dan mogelijk om de parameters te optimaliseren zodat de kostfunctie geminimaliseerd wordt. Hoe lager de kostfunctie is hoe beter de hypothese.
+De logistische regressie kostfunctie ziet er als volgt uit: 
+$$ 
+J(\theta) \; = \frac{1}{m}\sum_{1}^{m} \;   Kost (h_{\theta}(x^{(i)}), y^{(i)} )  
+$$
+
+De kost wordt als volgt berekent:
+$$Kost (h_{\theta}(x), y) \; = \; -y\ln(h_{\theta}(x)) \;- \;(1-y) \ln(1-h_{\theta}(x))  \;\;\;\; met \; y \in \{0,1\}$$
+
+We stellen \textit{y} gelijk aan 1. Dan zien we dat eigenlijk enkel het eerste deel van de functie ($-y\ln(h_{\theta}(x))$) van belang zal zijn want het tweede deel ($- (1-y) \ln(1-h_{\theta}(x))$ zal nul zijn omdat 1-\textit{y} dan nul zal zijn en dus het product ook nul is. Zo krijgen we: 
+\newline $Kost (h_{\theta}(x), y) \; = \; -\ln(h_{\theta}(x))$. Op deze manier komen we uit bij de rode kostfunctie die u ziet in figuur \ref{fig:kostfunctie} p\pageref{fig:kostfunctie}.
+
+$h_{\theta}(x)$ is de hypothese die uitgelegd is in \ref{sec:Binaire-logistische-regressie} binaire logistische regressie. Dus die drukt de waarschijnlijkheid uit dat een vector \textit{x} positief of negatief is. Wanneer we een perfect voorspelling willen dan zou de kost 0 moeten zijn enkel zo ben je volledig zeker dat het label die aan \textit{x} wordt toegekend 100\% positief of negatief is. Als de hypothese zo goed als zeker is dat het vector positief is zal de kost nog dicht bij nul zijn. Eens $h(x) < 0.5$ zal de kost sneller stijgen. Dit zelfde principe geldt voor de negatieve voorbeelden. 
+
+De kostfunctie in één uitdrukking is: 
+$$ 
+J(\theta) \; = -\frac{1}{m}\sum_{1}^{m} \;  y\ln(h_{\theta}(x)) \;- \;(1-y) \ln(1-h_{\theta}(x))  
+$$
+
+Er zijn nog andere kostfuncties die gebruikt kunnen worden maar deze wordt altijd 
+Deze functie kan afgeleid worden door een principe binnen statistiek namelijk het "maximum likelihood estimation"-principe Dit is een manier om parameters te zoeken voor verschillende modellen zoals logistische regressie. Deze functie is ook convex. Convex is een eigenschap die gebruikt wordt voor optimalisatiefuncties. Dit houdt onder meer in dat de functie het globaal minimum bereikt. 
+
+\begin{figure}
+	\centering
+		\begin{tikzpicture} 
+		\begin{axis}[
+		axis lines = left,
+		xlabel = {$h(x)$},
+		ylabel = {$Kost (h_{\theta}(x), y)$},
+		]
+		%Below the red parabola is defined
+		\addplot [
+		domain=0:1, 
+		samples=100, 
+		color=red,
+		]
+		{-ln(x)};
+		\addlegendentry{$-ln(x)$}
+		%Here the blue parabloa is defined
+		\addplot [
+		domain=0:1, 
+		samples=100, 
+		color=blue,
+		]
+		{-ln(1-x)};
+		\addlegendentry{$-ln(1-x)$}
+		
+		\end{axis}
+		\end{tikzpicture}
+	\caption{Visualisatie functies}
+	\label{fig:kostfunctie}
+\end{figure}
+
+
+\subsubsection{Gradient descent}
+\label{sec:gradient-descent}
+Gradient descent is een optimalisatiealgoritme die veel gebruikt wordt voor logistische regressie. Op deze manier is het mogelijk om de parameters $\theta$ te minimaliseren zodat de hypothese goede voorspellingen kan doen.
+Gradient descent vereist een continue afleidbare functie, de kostfunctie die we zonet besproken hebben voldoet aan die vereisten. Er is ook een functie \textit{g} nodig die een vector teruggeeft als gradiënt en een stapgrootte $\alpha$. De stapgrootte zorgt ervoor dat het algoritme naar een lokaal of globaal minimum kan convergeren. Wanneer het algoritme stopt in een lokaal minimum heb je niet altijd de beste oplossing tenzij het lokaal minimum ook het globaal minimum is. Indien dit niet het geval is kan gradient descent een aantal keer herhaalt worden zodat het globaal minimum kan gevonden worden. Het belang van een goede stapgrootte $\alpha$ is belangrijk. Wanneer die te groot is dan zou het kunnen dat het algoritme in een oneindige lus geraakt. Of als $\alpha$ te klein is dan kan het zeer lang duren tegen dat er een lokaal minimum gevonden is. 
+
+Voor iedere parameter $\theta_{n}$ wordt volgende uitdrukking berekent en terug toegekend aan zichzelf
+$$
+\theta_{i} = \theta_{i} - \frac{\partial}{\partial}(J(\theta_{i}, ... , \theta{n}))
+$$
+
+\textbf{\textit{(Misschien nog voorbeeldje uitwerken en lokaal/globaal minimum uitleggen)}}
 
 
 
+\subsection{Support Vector Machine}
+\label{sec:Support-Vector-Machine}
+Andrew Ng is professor aan de Stanford University begon het deel support vectormachine in zijn cursus \autocite{cursusAndrewNg} met volgende zin.
+\begin{quote}
+	SVMs are among the best (and many believe are indeed the best) ‘off-the-shelf’ supervised learning algorithms.
+\end{quote}
+
+SVMs scoren over het algemeen beter dan logistische regressie of neurale netwerken. Het is mogelijk dat een van de twee alternatieven beter scoort maar dit hangt dan af van de data die gebruikt wordt. 
+
+
+
+Support Vector Machines are among the most robust and successful classification algorithms [8, 6]. They are based upon the idea of maximizing the margin i.e. maximizing the minimum distance from the separating hyperplane to the nearest example. The basic SVM supports only binary classification, but extensions [21, 4, 9, 15] have been proposed to handle the multiclass classification case as well. In these extensions, additional parameters and constraints are added to the optimization problem to handle the separation of the different classes. The formulation of [22, 4] can result in a large optimization problem, which may be impractical for a large number of classes. On the other hand, [9] reported a better formulation with a more efficient implementation.
 
