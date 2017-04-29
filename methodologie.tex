@@ -26,7 +26,7 @@ Dit type heeft als doel om een hypothese te bekomen die dan zal kunnen gebruikt 
 
 \subsection*{Ongesuperviseerd leren}
 \label{sec: ongesuperviseerd-leren}
-Verschillend met gesuperviseerd leren beschikt een ongesuperviseerd algoritme over een ongelabelde dataset. Er zijn verschillende inputs maar die behoren niet tot een specifieke klasse. De meest gebruikte techniek is dus clustering. Als we dit bekijken voor deze casus is dit geen optimale manier. We kunnen wel bepaalde besturingsevents clusteren waardoor je tot een x aantal clusters kan komen maar we hebben geen idee of de ene cluster PacMan of Mortal Combat is bijvoorbeeld. 
+Verschillend met gesuperviseerd leren beschikt een ongesuperviseerd algoritme over een ongelabelde dataset. Er zijn verschillende inputs maar die behoren niet tot een specifieke klasse. De meest gebruikte techniek is dus clustering. Als we dit bekijken voor deze casus is dit geen optimale manier. We kunnen wel bepaalde besturingsevents clusteren waardoor je tot een x aantal clusters kan komen maar we hebben geen idee of de ene cluster PacMan of Mortal Kombat is bijvoorbeeld. 
 
 
 \textbf{\underline{{\Large misschien een voorbeeldje uitwerken? }}}
@@ -37,31 +37,60 @@ Verschillend met gesuperviseerd leren beschikt een ongesuperviseerd algoritme ov
 In deze casus beschikken we over een gelabelde dataset. Het doel is om met een gegeven input een concreet spel te krijgen als output. Gesuperviseerde classificatiealgoritmen zijn dus de meest geschikte voor deze in dit onderzoek. Doordat we een gelabelde dataset hebben en er moeten verdelingen gemaakt worden op basis van labels. Op deze manier kunnen we ongekende input plaatsen bij één bepaald spel.
 
 
-
-
 \subsection{Logistische regressie}
 \label{sec:logistische-regressie}
 
-Logistische regressie is het eerste algoritme die we zullen bespreken in deze bachelorproef. Zoals u uit de naam kan afleiden maakt dit algoritme gebruik van een logistische functie. Aan de hand van een vergelijking kunnen er voorspellingen worden gemaakt. Gedurende het trainingsproces wordt deze vergelijking geoptimaliseerd. Er zullen meerdere spelletjes voorzien zijn op de arcademachine dus ook meerdere klassen. Omdat we van nul af aan starten zal ook de binaire logistische regressie gebruikt worden en vervolgens twee mogelijke methoden om met meerdere klassen te werken. 
+Logistische regressie is het eerste algoritme die we zullen bespreken in deze bachelorproef. Ondanks de naam doet vermoeden, valt dit algoritme niet onder de categorie regressie zoals we in sectie \ref{sec: superviseerd-leren} superviseerd-leren hebben gezien. Dit is wel degelijk een classificatiealgoritme die echter wel gebruik maakt van de logistische functie. Aan de hand van die hypothese kunnen er voorspellingen gemaakt worden. Gedurende het trainingsproces wordt de hypothese geoptimaliseerd. Er zullen meerdere spelletjes voorzien zijn op de arcademachine dus ook meerdere klassen. Omdat we van nul af aan starten zal ook de binaire logistische regressie gebruikt worden en vervolgens zal een van de twee mogelijke methoden om met meerdere klassen te werken gebruikt worden.. 
 
 \subsubsection{Binaire logistische regressie}
 \label{sec:Binaire-logistische-regressie}
-Zoals de naam al doet vermoeden wordt met dit algoritme een classificatie gemaakt tussen twee klassen. 
-Er wordt gestart met een lineaire regressie als hypothese. De waarde $y$ zal altijd binnen de grenzen 0 en 1 liggen.  Door middel van de sigmoïdfunctie krijgen we altijd een waarde tussen 0 en 1 exclusief de grenzen. Het functievoorschrift is als volgt. 
+
+Er moeten enkele puntjes uitgelegd worden voordat we aan de effectieve uitleg kunnen beginnen. Eerst en vooral moeten we weten wat we willen voorspellen. Aangezien we beginnen met binaire logistische regressie maken we een voorspelling tussen twee klassen. Onze vraag kan dus als volgt luiden "Speelt de gebruiker Mortal Kombat of niet?". De waarde \textit{y} zal ons het resultaat geven. \textit{y} kan slechts twee waarden aannemen $y \; \in \; \{0,1\}$ met 1 als de positieve klasse, Mortal Kombat. Als \textit{y} 0 is dan duidt het op de negatieve klasse, in onze data stelt dit Pacman voor. 
+
+Logistische regressie start vanuit de hypothese van lineaire regressie die als volgt is: 
 $$
-y(x) = {\frac{1}{1+e^{-x}}}
+h(x_{i}) \:= \: \theta^{T}x_{i} \:=\: \theta_{0} \:+ \:\theta_{1}x_{i1} \:+ \: ...\: + \: \theta_{n}x_{in}
 $$
-Theorie moet nog verder uitgewerkt worden
+$ \theta^{T}$ is de getransponeerde vector van parameters die door het algoritme gegenereerd worden. Als de uitkomst van deze vergelijking $\geq 0$ dan zal de positieve klasse voorspelt worden, de andere klasse zal dan gegeven worden wanneer $h(x) < 0$ . 
+
+De logistische regressie is niet meer dan de sigmoïd functie van die lineaire hypothese. Zo krijgen we $h(x) = g(\theta^{T}x)$ . De sigmoïd functie wordt ook wel logistische functie genoemd. Vandaar de naam logistische regressie. 
+$$
+g(x) \: = \: {\frac{1}{1+e^{-x}}} \: => \: h(x) \: = \:{\frac{1}{1+e^{-\theta^{T}x }}}
+$$
 
 
 
+De eigenschap van een sigmoïd funtie is dat altijd zal voldoen aan volgende voorwaarde: $ 0 \leq h(x) \leq1$. 
+Nu weten we nog niet wat de waarde van $h(x)$ precies uitdrukt. Dit kunnen we wiskundig uitdrukken als $P(y=1|x;\theta)$. M.a.w. de kans dat $y = 1$ voor de gegeven vector \textit{x} met de parameters $\theta$. Wanneer je de kans op de negatieve klasse wenst te weten moet je eenvoudig weg $1 - P(y=1|x;\theta)$. 
+\textit{x} kan nu gemakkelijk geclassificeerd worden. Wanneer $h(x)\:\geq\:0.5$ heeft \textit{x} de meeste kans om tot de positieve klasse te behoren, voor deze casus Mortal Kombat. Anderzijds als $h(x)\:<\:0.5$ zal \textit{x} behoren tot de andere klasse. 
 
+\begin{figure}
+	\centering
+	\begin{tikzpicture} 
+	\begin{axis}[
+	axis lines = left,
+	xlabel = {$\theta^{T}x_{i}$},
+	ylabel = {$g(h(\theta^{T}(x))$},
+	]
+	%Below the red parabola is defined
+	\addplot [
+	samples=100, 
+	color=red,
+	]
+	{1/(1+exp(-x)};
+	%\addlegendentry{$-ln(x)$}
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Sigmoïd functie, wanneer  $\theta^{T}x_{i} = 0$ zal de sigmoïd functie gelijk zijn aan 0.5 dit wil zeggen dat de 2 klassen even veel kans hebben om gekozen te zijn. Naar mate  $\theta^{T}x_{i}$ van waarde verhoogt zal de waarschijnlijkheid voor de positieve klasse ook verhogen. }
+	\label{fig:sigmoid-functie}
+\end{figure}
+ 
 
 \subsubsection{Multiklasse logistische regressie}
 \label{sec:Multiklasse-logistische-regressie}
 Wat u uit de naam al kan afleiden is dat dit een algoritme is om een classificatie te maken over meerdere klassen. Dit kan op twee methoden gedaan worden. De one-vs-one methode of de one-vs-rest(/all) methode. 
 \subparagraph{One-vs-all}
-Dit is de gemakkelijkste van de twee methoden. Zoals de naam al doet vermoeden vergelijken we één klasse tegenover alle andere klassen. Als er \textit{n} aantal klassen zijn dan zullen er \textit{n} hypothesen $h^{(k)}$ met $k \in \{pacman, mortal combat, tetris, ..\}$ gemaakt worden. \textit{k} is dan de positieve klasse en alle andere klassen samen is dan één negatieve klasse. \newline
+Dit is de gemakkelijkste van de twee methoden. Zoals de naam al doet vermoeden vergelijken we één klasse tegenover alle andere klassen. Als er \textit{n} aantal klassen zijn dan zullen er \textit{n} hypothesen $h^{(k)}$ met $k \in \{pacman, Mortal Kombat, tetris, ..\}$ gemaakt worden. \textit{k} is dan de positieve klasse en alle andere klassen samen is dan één negatieve klasse. \newline
 Voor een nieuwe input \textit{x} die moet geclassificeerd worden gaat de methode als volgt te werk. $h^{(k)} (x)$ geeft een waarde terug die de waarschijnlijkheid uitdrukt dat x tot de klasse \textit{k} behoort. Dit wordt voor alle \textit{n} hypothesen gedaan. De klasse met de hoogste waarschijnlijkheid wordt dan logischerwijs gekozen als de voorspelde klasse waar \textit{x} toe behoort. 
 \subparagraph{One-vs-one}
 Met deze techniek vergelijken we twee klassen met elkaar zoals we gezien hebben in sectie \ref{sec:Binaire-logistische-regressie} binaire logistische regressie. Er wordt dus opnieuw meerdere hypothesen gemaakt maar anders dan in one-vs-all worden er nu combinaties van twee klassen gebruikt wat er zo uitziet $h^{(k,m)}$. \textit{k} is in dit geval de positieve klasse en \textit{m} de negatieve. In totaal zullen er n(n-1)/2 hypothesen gemaakt worden.
@@ -125,7 +154,6 @@ Deze functie kan afgeleid worden door een principe binnen statistiek namelijk he
 	\caption{Visualisatie functies}
 	\label{fig:kostfunctie}
 \end{figure}
-
 
 \subsubsection{Gradient descent}
 \label{sec:gradient-descent}
