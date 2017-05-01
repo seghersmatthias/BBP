@@ -27,13 +27,13 @@ Door deze mogelijkheden lijkt dit dan ook het meest geschikte framework om aan h
 
 \section{Fase 1}
 \label{sec:Fase1}
-De eerste stap om een programma te maken om voorspellingen te doen is de data maken. Omdat dit ook nog maar de eerste fase is beginnen we gemakkelijk. Dit wil zeggen dat we de computer een eerste voorspelling laten doen tussen twee totaal verschillende spelletjes. We nemen Pacman en Mortal Kombat (schietspel) om te starten. Pacman kan gespeeld worden enkel d.m.v. joystickbewegingen. Om Mortal Kombat te spelen heb je veel de knoppen nodig maar ook de joystick.  Nu als mens is het gemakkelijk om dit verschil te kunnen zien, als er knoppen gebruikt geweest zijn was de speler Mortal Kombat aan het spelen. 
+De eerste stap om een programma te maken om voorspellingen te doen is de data maken. Omdat dit ook nog maar de eerste fase is beginnen we gemakkelijk. Dit wil zeggen dat we de computer een eerste voorspelling laten doen tussen twee totaal verschillende spelletjes. We nemen Pacman en Mortal Kombat (schietspel) om te starten. Pacman kan gespeeld worden enkel d.m.v. joystickbewegingen. Om Mortal Kombat te spelen heb je veel de knoppen nodig maar ook de joystick.  Nu als mens is het gemakkelijk om dit verschil te kunnen zien, als er knoppen gebruikt geweest zijn kunnen we concluderen dat de speler Mortal Kombat aan het spelen was. 
 
 \subsection{Data}
 \label{sec:DataFase1}
 De eerste dataset is zelf gegenereerd zonder echte input van de arcademachine omdat het systeem die de data zal inlezen nog in ontwikkeling is op dit moment. 
 In Excel zijn er drie kolommen voorzien een kolom voor het aantal keer dat de knoppen ingedrukt zijn geweest gedurende twee minuten. Dan het aantal keer dat de joystick bewogen is in diezelfde tijdsspanne. De derde kolom staat het ID van het spel. 
-In figuur \ref{fig:regressieFig} ziet u random 10 voorbeelden uit de dataset.
+In figuur \ref{fig:regressieFig} op pagina \pageref{fig:regressieFig} ziet u random 10 voorbeelden uit de dataset.
 Het GameID 0 wijst op Pacman en 1 is dan Mortal Kombat. Als u de rijen van Pacman bekijkt dan valt op dat de ButtonPresses niet 0 zijn, dit komt omdat er bij het begin van een spel soms eens geprobeerd wordt wat de functies van de knoppen zijn. 
 
 \begin{figure}[]
@@ -51,17 +51,18 @@ Het GameID 0 wijst op Pacman en 1 is dan Mortal Kombat. Als u de rijen van Pacma
 
 Het eerste algoritme die we gaan testen is logistische regressie. In fase 1 gaan we slecht voorspellingen doen tussen twee verschillende spellen vandaar dat we binaire logistische regressie gaan toepassen die eerder uitgelegd is in sectie \ref{sec:Binaire-logistische-regressie}.
 
-In de code \ref{code:linaireRegressieTweeKlassen} ziet u de implementatie van de binaire logistische regressie. Er worden 2 parameter meegegeven in de functie, input en output. De input is een dubbele array van \textit{double} waarden. Daarin zitten rijen met 2 kolommen die de ButtonPresses en JoystickMovements bevatten. De ouput parameter bevat een enkele array die het GameID bevat. Hoe deze data ingelezen wordt kan u zien in de code \ref{code:dataInlezen}. Met een ExcelReader krijgen we een DataTable die we met de methode ToJagged kunnen omvormen naar ons gewenste dubbele array met de kolomnamen kunnen we de kolommen selecteren. Deze methode is onderdeel van het Accord-framework. 
+In de code \ref{code:linaireRegressieTweeKlassen} ziet u de implementatie van de binaire logistische regressie. Er worden twee parameter meegegeven in de functie, input en output. De input is een dubbele array van \textit{double} waarden. Daarin zitten rijen met twee kolommen die de ButtonPresses en JoystickMovements bevatten. De ouput parameter bevat een enkele array die het GameID bevat. Hoe deze data ingelezen wordt kan u zien in de code \ref{code:dataInlezen} op pagina \pageref{code:dataInlezen}. Met een ExcelReader krijgen we een DataTable die we met de methode ToJagged kunnen omvormen naar ons gewenste dubbele array met de kolomnamen kunnen we de kolommen selecteren. Deze methode is onderdeel van het Accord-framework. 
 
-Wat de LearningRate precies inhoudt wordt later samen met gradient descent uitgelegd (gradient descent zal in het theoretische deel uitgelegd worden)
+
+%\textit{Wat de LearningRate precies inhoudt wordt later samen met gradient descent uitgelegd (gradient descent zal in het theoretische deel uitgelegd worden)}
 
 \subsubsection{Resultaten}
-\subparagraph{Snelheid van het algoritme} 
-Een eerste belangrijke metric om algortimen te kunnen vergelijken is de snelheid. Het zou niet correct zijn om een stopwatch te laten lopen bij het begin van het programma en te stoppen wanneer het programma klaar is. De tijd om de data in te laden in het programma, de omzetting naar array's, de objecten die worden geïnitialiseerd, ... is allemaal niet zo belangrijk. Wat wel interessant is, is de tijd die het algoritme nodig heeft om tot een hypothese te komen. Dit gebeurt in de \textit{Learn} methode. 
+\paragraph{Snelheid van het algoritme} 
+Een eerste belangrijke metric om algortimen te kunnen vergelijken is de snelheid. Het zou niet correct zijn om een stopwatch te laten lopen bij het begin van het programma en te stoppen wanneer het programma klaar is. De tijd om de data in te laden in het programma, de omzetting naar arrays, de objecten die worden geïnitialiseerd, ... is allemaal niet zo belangrijk. Wat wel interessant is, is de tijd die het algoritme nodig heeft om tot een hypothese te komen. Dit gebeurt in de \textit{Learn} methode. 
 Net voor die lijn code wordt uitgevoerd starten we een stopwatch en erna stoppen we en bekijken het verschil. Omdat de duur verschillend kan zijn nemen we het gemiddelde van 50 metingen. 
-Doordat deze dataset slechts 400 voorbeelden bevat en de verschillen tussen de spelletjes Pacman en Mortal Kombat zeer duidelijk zijn heeft het algoritme slecht 1,53842 milliseconden nodig om een hypothese te maken. 
-\subparagraph{F-score} (Moet nog theoretisch uitgelegd worden bij methodologie)
-\newline
+Doordat deze dataset slechts 400 voorbeelden bevat en de verschillen tussen de spelletjes Pacman en Mortal Kombat zeer duidelijk zijn heeft het algoritme slechts 5,8302 milliseconden nodig om een hypothese te maken. Dit resultaat is het gemiddelde van twintig testen. 
+\paragraph{F-score} 
+
 Doordat deze dataset zo simpel is en de testdataset dus ook heeft het algoritme geen probleem om de testdata te classificeren. De precisie is dan ook logischerwijs één en de rappel eveneens.
 Zo bekomen we een precisie van 1 die dus wil zeggen dat het algoritme foutloos is op de testdata.  
 
@@ -81,10 +82,10 @@ public static void StartLogisticRegression(double[][] input, int[] output)
        };
        
       var learner = new LogisticGradientDescent(logisticRegression)
-      {
-      		LearningRate = 0.0001
-      };
-     
+       {
+            Tolerance=0.1
+       };
+    
      // De gradient descent begint met de logistische regressie te optimaliseren
      logisticRegression = learner.Learn(input, output);
 }
@@ -109,5 +110,58 @@ using (var table = new ExcelReader("../../datasetExcel.xls").GetWorksheet("Train
 	\caption{Inlezen Excel data}
 	\label{code:dataInlezen}
 \end{figure}
+
+\newpage
+\subsection{Support Vector Machine}
+\label{sec:supportvectormachine}
+Support Vector Machine is het tweede algoritme die we zullen gebruiken en dus vergelijken met logistische regressie. 
+We zijn nog altijd in de eerste fase dus vergelijken we twee klassen met elkaar. 
+De code voor Support Vector Machine vindt u in code \ref{code:svmBi} op pagina \pageref{code:svmBi}. 
+
+De parameters inputs en outputs worden opnieuw meegegeven nadat de data is opgehaald zoals we gezien hebben in code \ref{code:dataInlezen}. Vervolgens initialiseren we het SupportVectorMachine object. We geven in de constructor het aantal features mee (in het Accord-framework gebruiken ze inputs wat verwarrend kan zijn). Het aantal features in dit geval is 2 namelijk de kolommen ButtonPresses en Joystickmovements. Vervolgens wordt het optimalisatie algoritme gecreëerd met de nodige attributen die voor zichzelf spreken. Tot slot kan de SVM geoptimaliseerd worden d.m.v de Learn methode.  
+
+\subsubsection{Resultaten}
+\paragraph{Snelheid van het algoritme} 
+Om de snelheid van dit algoritme te meten plaatsen we opnieuw een stopwatch voor net voor het de lijn \textit{"svm = teacher.Learn(inputs, outputs)"}. En we stoppen die uiteraard net nadat deze lijn is uitgevoerd. Het programma is 20 keer uitgevoerd geweest en daarvan is het gemiddelde genomen van de 20 resultaten. 30,4823 milliseconden is hoelang Support Vector Machine nodig heeft om een hypothese te stellen. En dit met een standaard deviatie van slechts 1,3146.
+
+\paragraph{F-score}
+Doordat deze dataset zo simpel is net zoals de testdataset, heeft het algoritme geen probleem om de testdata te classificeren. De precisie is dan ook logischerwijs één net als de rappel.
+Zo bekomen we een precisie van 1 die dus wil zeggen dat het algoritme foutloos is op de testdata.  
+
+
+
+%%svm 2-class
+\begin{figure}[]
+\renewcommand{\figurename}{Code}
+\begin{lstlisting}
+public static void StartSupportVectorMachine(double[][] inputs, int[] outputs)
+{
+//Support Vector Machine initialiseren met 2 input features namelijk ButtonPresses en Joystickmovements
+SupportVectorMachine svm = new 			SupportVectorMachine(inputs: 2);
+	//Het optimalisatiealgoritme voor SVM van het Accordframework is als vlogt geinitialiseerd
+	var teacher = new LinearDualCoordinateDescent()
+	{
+	      Inputs = inputs,
+	      Outputs = outputs,
+	      Model = svm,
+	      Tolerance = 0.1
+	};
+	//SVM wordt geoptimaliseerd
+	svm = teacher.Learn(inputs, outputs);
+}
+\end{lstlisting}
+\caption{Support Vector Machine implementatie}
+\label{code:svmBi}
+\end{figure}
+\subsection{Conclusie na fase 1}
+Bij een eerste vergelijking met twee inputvariabelen en twee klassen. Aangezien dit een simpele start is met twee duidelijk verschillende spelletjes hebben beide algoritmen een perfecte F-score van 1.  Het verschil wordt nu dus gemaakt op de snelheid. Logistische regressie had een hypothese geleerd in 5,8302 milliseconden terwijl de SVM daar gemiddeld 30,4823 over gedaan heeft. Dit $\pm$ 5 keer langer. 
+\newline
+Op dit ogenblik krijgt logistische regressie logischerwijs nog de voorkeur. Uiteraard zal in de arcade machine meerdere spelletjes beschikbaar zijn. Ook zullen er meer dan twee metrics zijn waarop we spelletjes kunnen vergelijken. 
+
+
+\input{fase2}
+
+
+
 
 
