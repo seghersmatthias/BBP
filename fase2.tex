@@ -3,8 +3,8 @@
 \section{Fase 2}
 \label{sec:Fase2}
 
-In \ref{sec:Fase1} fase 1 maakten we gebruik van ButtonPresses en JoystickMovements. We gaan nu nog een extra inputvariabele toevoegen. Er zijn spelletjes waar je soms eventjes niet kan spelen omdat er van level wordt veranderd of als je bijvoorbeeld Pacman speelt wordt er afgeteld van 3 naar 1 wanneer je dood geweest bent, dit zijn dan 3 seconden dat er niets gebeurt is. Terwijl er tijdens Mortal Kombat speel je meer en moet je minder lang wachten.
-Vandaar dat er een kolom 'TotalTimeOfNoUseOfControls' is toegevoegd aan de dataset met random getallen die voor Mortal Kombat tussen 800ms en 2500ms liggen. Terwijl er bij Pacman gestart wordt vanaf 3000ms tot 5000ms.
+In \ref{sec:Fase1} fase 1 maakten we gebruik van ButtonPresses en JoystickMovements. We gaan nu nog een extra inputvariabele toevoegen. Er zijn spelletjes waar je soms eventjes niet kan spelen omdat er van level wordt veranderd of als je bijvoorbeeld Pacman speelt wordt er afgeteld van 3 naar 1 wanneer je dood geweest bent, dit zijn dan 3 seconden dat er niets gebeurt is. Terwijl er bij Mortal Kombat meer gespeeld wordt en minder lang moet wachten.
+Vandaar dat er een kolom 'TotalTimeOfNoUseOfControls' is toegevoegd aan de dataset met random getallen die voor Mortal Kombat tussen 800 ms en 2500 ms liggen. Terwijl er bij Pacman gestart wordt vanaf 3000 ms tot 5000 ms.
 Doordat er nu een extra variabele toegevoegd is gaan we ervan uit dat de algoritmen er beetje langer over zullen doen dan in de vorige fase. Nadat we deze extra inputvariabele besproken hebben gaan we de dataset nog beetje realistischer te maken. Er zullen nog twee extra inputvariabelen toegevoegd worden namelijk de frequentie van de buttons en joystick per 20 seconden.  
 
 \subsection{Logistische regressie}
@@ -14,22 +14,22 @@ Omdat we nog altijd met twee klassen werken moet er bijna niets aan de implement
 
 \subsubsection{Resultaten}
 \paragraph{Snelheid van het algoritme} 
-We beginnen wij onze eerste extra kolom, 'TotalTimeOfNoUseOfControls'. De snelheid van het algoritme werd opnieuw 20 keer gemeten en met een gemiddelde van 11,1725 ms en een standaardafwijking van 0,4269. Dit is al bijna dubbel zo lang als de eerste implementatie. Dit komt doordat het verschil is tussen Pacman en Mortal Combat nu niet meer afhankelijk is van 2 duidelijk verschillende inputvariabelen maar nu één extra is waar de verschillen dichter bij elkaar liggen.
+We beginnen bij onze eerste extra kolom, 'TotalTimeOfNoUseOfControls'. De snelheid van het algoritme werd opnieuw 20 keer gemeten en met een gemiddelde van 8,6405 ms is wat al  dubbel zo lang is als de eerste implementatie. Dit komt doordat het verschil tussen Pacman en Mortal Kombat nu niet meer afhankelijk is van 2 duidelijk verschillende inputvariabelen maar nu één extra is waar de verschillen dichter bij elkaar liggen.
 
-In de volgende test voegen we de kolommen 'ButtonPressesPer20Seconds' en 'JoystickmovementsPer20Seconds' toe.  Verrassend genoeg is het gemiddelde met deze variabelen erbij slechts 1.1ms gestegen. Dit kan verklaard worden doordat er een correlatie is tussen het aantal keer er op een knop gedrukt is in 1 minuut en de frequentie van de knoppen. Om de test te doen hebben we de correlatie tussen die twee kolommen berekent en die komt uit op 0.8010, wat wil zeggen dat er een sterk verband is. Doordat er zo'n sterk verband is brengen die extra inputvariabelen geen meerwaarde aan de dataset. 
+In de volgende test voegen we de kolommen 'ButtonPressesPer20Seconds' en 'JoystickmovementsPer20Seconds' toe.  Verrassend genoeg is het gemiddelde met deze variabelen erbij slechts .7 ms gestegen. Dit kan verklaard worden doordat er een correlatie is tussen het aantal keer er op een knop gedrukt is in 1 minuut en de frequentie van de knoppen. Om de test te doen hebben we de correlatie tussen die twee kolommen berekent en die komt uit op 0.8010, wat wil zeggen dat er een sterk verband is. Doordat er zo'n sterk verband is brengen die extra inputvariabelen geen meerwaarde aan de dataset. 
 
-Een andere inputvariabele die we kunnen gebruiken is het aantal keer dat de speler "dood" is geweest. In termen van Pacman is dit iedere keer wanneer hij opgegeten wordt. In geval van Mortal Kombat, het aantal keer de speler dood geschoten is geweest. In beide spelletjes is het mogelijk dat er geen enkele keer een "dood" is geweest. Of als de speler een beginner is kan die vrij veel "dood" gegaan zijn. Dit geldt voor beide spelletjes.  Wanneer we de gemiddelden meten van met deze kolom erbij dan krijgen we een gemiddelde van 13,6282ms. De verklaring waarom het algoritme niet veel meer vertraagt is omdat de waarden van de eerste twee kolommen veel zwaarder doorwegen dan de laatste twee die nu toegevoegd geweest zijn. Dit geldt ook voor een 5de kolom. 
+Een andere inputvariabele die we kunnen gebruiken is het aantal keer dat de speler 'dood' is geweest. In termen van Pacman is dit iedere keer wanneer hij opgegeten wordt. In geval van Mortal Kombat, het aantal keer de speler dood geschoten is geweest. In beide spelletjes is het mogelijk dat er geen enkele keer een 'dood' is geweest. Of als de speler een beginner is kan die vrij veel 'dood' gegaan zijn. Dit geldt voor beide spelletjes.  Wanneer we de gemiddelden meten van met deze kolom erbij dan krijgen we een gemiddelde van 8 ms. De verklaring waarom het algoritme niet veel meer vertraagt is omdat de waarden van de eerste twee kolommen veel zwaarder doorwegen dan de laatste twee die nu toegevoegd geweest zijn. Dit geldt ook voor een 5de kolom die toegevoegd zal worden om de moeilijkheid nog beetje te vergroten.  'Multiplayer' is een kolom met boolean waarden. Wanneer er 2 spelers tegen elkaar aan het spelen waren zal die waarde op true staan, anders op false. Pacman zal altijd alleen gespeeld worden dus die waarde zal altijd false zijn.  
 
-Als we het programma debuggen kunnen we de coefficienten vinden. Als we dit bekijken voor de logistische regressie tot nu toe dan krijgen we volgend functievoorschrift. 
+Als we het programma debuggen kunnen we de coëfficiënten bekijken. Als we die uitschrijven voor de logistische regressie tot nu toe dan krijgen we volgend functievoorschrift. Daarin ziet u duidelijk dat de laatste 2 kolommen eigenlijk overbodig zijn. 
 $$
-{y(x0, x1, x2, x3, x4) = 224,2905592402*x0 + 194,564451548182*x1 + -29,5419505307097*x2 + 0,730666711514321*x3 + 0,626555555555568*x4 + 0,771777799763496}
+{y(x0, x1, x2, x3, x4) = 255,958*x0 + 230,2784*x1 + -37,0513*x2 + 0,1878*x3 + 0,7306*x4 + 0,858}
 $$
 Zoals we in de sectie \ref{sec:Binaire-logistische-regressie} binaire logistische regressie hebben gezien moet de waarde van de functie hierboven nog verwerkt worden in de sigmoïdfunctie. 
  
 
 \paragraph{F-score} 
 
-De logistische regressie is nog steeds foutloos. 
+De logistische regressie met een Tolerance van 0.1 is nog steeds foutloos dus blijft de F-score gelijk aan 1.
 
 %%Logistic regression code
 \begin{figure}[]
@@ -55,12 +55,12 @@ public static void StartLogisticRegression(double[][] input, int[] output)
 \newpage
 \subsection{Support Vector Machine}
 \label{sec:supportvectormachineFase2}
-Voor de support vector machine gaan we uiteraard dezelfde kolommen gebruiken als dat we voor logistische regressie hebben gedaan. Als het aantal inputvariabelen relatief klein zijn tegenover het aantal trainingsvoorbeelden dan wordt er aangeraden om logistische regressie te gebruiken of SVM zonder kernel. \autocite{courseraSVM}. Met geen kernel wordt de standaard kernel bedoelt. Dit is dan ook de lineaire kernel die ook in deze bachelorproef gebruikt wordt.
+Voor de support vector machine gaan we uiteraard dezelfde kolommen gebruiken als dat we voor logistische regressie hebben gedaan. Als het aantal inputvariabelen relatief klein zijn tegenover het aantal trainingsvoorbeelden dan wordt er aangeraden om logistische regressie te gebruiken of een SVM zonder kernel. \autocite{courseraSVM}. Met geen kernel wordt de standaard lineaire kernel bedoelt. Dit is dan ook de kernel die in deze bachelorproef gebruikt wordt.
 Ook voor dit algoritme moeten we niet veel aanpassen om meerdere inputvariabele in rekening te brengen. 
 
 \subsubsection{Resultaten}
 \paragraph{Snelheid van het algoritme} 
-We starten met 'TotalTimeOfNoUseOfControls' toe te voegen. Het algoritme heeft daarvoor gemiddeld 33,3622 ms voor nodig gehad om een hypothese te bekomen. Dit is slechts een vermeerdering van $\pm$ 3 milliseconden. Ook voor de andere twee extra inputvariabelen bedraagt de vermeerdering bijna niets. Dit komt door de Tolerance waarde in het LineaarDualCoordinateDescent object. Die staat standaard ingesteld op 0.1 wat een goede keuze is. Omdat we niet willen dat onze hypothese 'overfit' heeft. Overfit is een term die gegeven wordt aan hypothesen die te nauwkeurig zijn wat uiteraard niet goed is. Zo kan het zijn dat nieuwe voorbeelden slecht gegeneraliseerd worden. 
+We starten met 'TotalTimeOfNoUseOfControls' toe te voegen. Het algoritme heeft daarvoor gemiddeld 39,3622 ms voor nodig gehad om een hypothese te bekomen. Dit is slechts een vermeerdering van $\pm$ 5 milliseconden. Ook voor de andere twee extra inputvariabelen bedraagt de vermeerdering bijna niets. Dit komt door de Tolerance waarde in het LineaarDualCoordinateDescent object. Die staat standaard ingesteld op 0.1 wat een goede keuze is. Omdat we niet willen dat onze hypothese 'overfit' heeft. Bij SVM's kan de Tolerance waarde niet veranderd worden Overfit is een term die gegeven wordt aan hypothesen die te nauwkeurig zijn wat uiteraard niet goed is. Zo kan het zijn dat nieuwe voorbeelden slecht gegeneraliseerd worden. 
 
 
 \paragraph{F-score}
@@ -69,4 +69,4 @@ Ook de support vector machine is nog altijd feilloos in het voorspellen van de t
 
 
 \subsection{Conclusie na fase 2}
-Ondanks dat we ondertussen al gebruik maken van vijf inputvariabelen hebben de algoritmen het nog niet moeilijk om correcte voorspellingen te doen. De Tolerance staat op 0.1 wat zeker een goede waarde is, zo zal de hypothese nooit te algemeen zijn, maar ook nooit te specifiek. 
+Ondanks dat we ondertussen al gebruik maken van vijf inputvariabelen hebben de algoritmen het nog niet moeilijk om correcte voorspellingen te doen. De Tolerance staat voor beiden algoritmen op 0.1 wat aanduidt wanneer een leerproces mag stoppen. Als die waarde de laag staat ingesteld dan zal de hypothese overfitten. Als een hypothese overfitted is dan wil dit zeggen dat hij te nauwkeurig wil voorspellen. Dit kan leiden tot een slechte generalisatie en dus slechte scores op de testdata. Als de Tolerance waarde te hoog is zal de hypothese te algemeen zijn en dus ook niet goed scoren. 

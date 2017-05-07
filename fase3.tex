@@ -1,0 +1,92 @@
+
+\newpage
+\section{Fase 3}
+\label{sec:Fase3}
+
+In fase 3 beginnen we terug opnieuw met slechts twee inputparameters maar nu wel met drie verschillende klassen. We bouwen dit opnieuw stap per stap op. Starten met 2 inputparameters dan 3 en tenslotte alle 5. Het derde spel die we in de dataset gaan toevoegen is Tetris. Tetris wordt enkel maar gespeeld met de knoppen. Op die manier hebben we 3 totaal verschillende spelletjes. Een waar bijna voornamelijk de joystick gebruikt wordt (Pacman), een waar enkel de knoppen gebruikt worden(Tetris) en nog een spel waar zowel knoppen als joystick gebruikt worden (Mortal Kombat). De 'TotalTimeOfNoUseOfControls' is ook veel lager bij Tetris omdat dit lang aan 1 stuk kan gespeeld worden. Ook 'AmountOfDeads' ligt veel lager dan andere spelletjes. 
+
+
+\subsection{Logistische regressie}
+\label{sec:Logistischeregressie-fase3}
+
+De implementatie van logistische regressie voor meerdere klassen is beetje anders. Maar wel eenvoudig gemaakt door het Accord framework. Met de klasse MultinomialLogisticRegressionAnalysis kunnen een hypothese laten genereren. Die dan de voorspellingen zal doen. Deze klasse bepaalt ook zelf hoeveel inputparameters  in de trainingsset aanwezig zijn. Dit geldt ook voor het aantal klassen.
+
+\subsubsection{Resultaten}
+\paragraph{Snelheid van het algoritme} 
+We beginnen de testen met twee inputparameters. Het algoritme blijft foutieve voorspellingen doen zolang er geen 25 iteraties gebeurt zijn door het leeralgoritme. Dit duurt 15,3824ms wat dus relatief gezien al een stuk langer duurt dan wanneer er slechts 2 klassen waren met 2 parameters. 
+
+Als we 3 inputparameters gebruiken ('ButtonPresses', 'JoystickMovements', 'TotelTimeOfNoUseOfControls') heeft het algoritme 95 iteraties nodig om een foutloze hypothese te maken. Dit duurt gemiddeld 22,67 ms. 
+
+Bij vijf inputparameters (+ 'AmountOfDeads' \& 'Multiplayer') doet het algoritme er 28,9126 ms over. Als we dit vergelijken met ons eerste resultaat in fase 3 is dit al bijna een verdubbeling. 
+
+\paragraph{Foutratio} 
+
+Nu we met meerdere klassen werken is het niet meer mogelijk om de F-score te berekenen omdat die enkel kan berekend worden tussen binaire classificaties. Onze testdataset telt nu 150 voorbeelden doordat er 50 extra voorbeelden van Tetris zijn toegevoegd. We laten het leeralgoritme stoppen wanneer een tolerance van 0.1 bereikt is. Bij eerste test met twee inputparameters beslist logistische regressie 143 van de 150 voorbeelden correct. Van de foutieve voorspellingen dacht het algoritme vijf maal dat Tetris gespeeld werd en een twee keer Pacman terwijl het eigenlijk zeven keer Mortal Kombat moest zijn. 
+
+Wanneer er drie inputvectors gebruikt worden dan voorspelt het algoritme even veel voorbeelden fout maar nu denkt hij vier keer dat Mortal Kombat gespeeld werd ipv Pacman. De andere drie fouten gebeuren bij het verschill tussen Tetris en Mortal Kombat waar hij telkens de voorkeur geeft aan Tetris.
+
+De volgende test met vijf inputvectors maakt acht foutieve voorspellingen. Waarvan vier keer de voorspelling Mortal Kombat Pacman had moeten zijn. Twee keer kreeg Tetris de voorkeur op Mortal Kombat net als dat Pacman twee keer daar de voorkeur op kreeg.
+
+
+%%Logistic regression code
+\begin{figure}[]
+	\renewcommand{\figurename}{Code}
+\begin{lstlisting}
+public static void StartLogisticRegression(double[][] input, int[] output)
+{
+     MultinomialLogisticRegressionAnalysis multiLogisticRegression = new MultinomialLogisticRegressionAnalysis();
+
+	 //multiLogisticRegression.Iterations = 135
+	 multiLogisticRegression.Tolerance = 0.1;
+
+     multiLogisticRegression.Learn(input, output);
+}
+
+\end{lstlisting}
+\caption{Implementatie multiklasse logistische regressie met een tolerance van 0.1 het Iterations property werd gebruikt om de snelheid te meten.}
+\label{code:logistischeregressiefase3}
+\end{figure}
+
+
+\newpage
+\subsection{Support Vector Machine}
+\label{sec:supportvectormachineFase3}
+Ook voor de Support Vector Machine is de implementatie gewijzigd. U kan de code zien in figuur \ref{code:svmFase1imp}. We maken gebruik van de lineaire kernel wat eigenlijk de standaard kernel is voor SVMs.
+%%Logistic regression code
+\begin{figure}[]
+	\renewcommand{\figurename}{Code}
+	\begin{lstlisting}
+var teacher = new MulticlassSupportVectorLearning<Linear>()
+  {
+    Learner = (p) => new LinearDualCoordinateDescent()
+    {
+        Tolerance = 0.01
+    }
+  };
+
+    teacher.ParallelOptions.MaxDegreeOfParallelism = 1;
+
+    var machine = teacher.Learn(inputs, outputs);
+	\end{lstlisting}
+	\caption{Implementatie multiklasse logistische regressie met een tolerance van 0.01 het Iterations property werd gebruikt om de snelheid te meten.}
+	\label{code:svmFase1imp}
+\end{figure}
+
+
+\subsubsection{Resultaten}
+\paragraph{Snelheid van het algoritme} 
+Een probleem die zich voordoet bij de Support Vector Machines is dat het aantal iteraties niet kunnen vastgezet worden. De Tolerance kunnen we wel wijzigen maar gelijk welke waarde we daar aan toekennen, de snelheid blijft hetzelfde. Dit zal waarschijnlijk een fout zijn in het Accord-framework. Of er nu 2, 3 of 5 inputvectoren zijn, de gemiddelde tijd van het leerproces is 135,0201 ms.
+
+
+\paragraph{Foutratio}
+Ook de Support Vector Machine blijft niet foutloos in deze fase tot en met 3 inputparameters is het algoritme wel nog feilloos vanaf vier worden er 2 spelletjes foutief voorspelt.  
+
+\subsection{Conclusie na fase 3}
+Ondanks dat we de snelheid niet precies met elkaar kunnen vergelijken zien we toch wel dat een Support Vector Machine meer tijd nodig heeft dan logistische regressie. We kunnen dit ook staven. We weten dat de tijd van een SVM met vijf inputvectors er gemiddeld 135,0201 ms over doet maar dan zijn er wel 2 foute voorspellingen. Om een perfect algoritme te krijgen zal het dus nog beetje langer dan 135,0201 ms duren. De tijd van een logistische regressie met vijf inputparameters bedraagt 66,7429 ms en dan is het algoritme foutloos. Dus op die manier weten we zeker dat het algoritme van SVM langer duurt dan logistische regressie. 
+
+Bij het foutratio zien we dan wel dat de SVM beter presteert dan logistische regressie met slecht 2 fouten tegenover 7. 
+
+
+
+\textbf{\textit{Er komt nog een fase 4 waar we nog een 4de spel toevoegen. Dit is de laatste fase, dan zou dit moeten volstaan om een conclusie te maken}}
+ 
