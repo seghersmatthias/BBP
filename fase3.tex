@@ -60,7 +60,7 @@ var teacher = new MulticlassSupportVectorLearning<Linear>()
   {
     Learner = (p) => new LinearDualCoordinateDescent()
     {
-        Tolerance = 0.01
+        Tolerance = 0.1
     }
   };
 
@@ -69,7 +69,7 @@ var teacher = new MulticlassSupportVectorLearning<Linear>()
     var machine = teacher.Learn(inputs, outputs);
 	\end{lstlisting}
 	\caption{Implementatie multiklasse logistische regressie met een tolerance van 0.01 het Iterations property werd gebruikt om de snelheid te meten.}
-	\label{code:svmFase1imp}
+	\label{code:svmFase3imp}
 \end{figure}
 
 
