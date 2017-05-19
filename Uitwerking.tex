@@ -10,16 +10,16 @@
 \label{sec:Benodigdheden}
 
 \subsection{Data}
-Een onmisbaar onderdeel om aan machine learning te doen is uiteraard de data. Tijdens de deze bachelorproef wordt er gebruik gemaakt van zelf gegenereerde data in Excel. Het systeem om data uit te lezen afkomstig van de arcademachine is niet tijdig klaar geraakt om te gebruiken. De data die uit de arcademachine ontvangen zal worden zal in CSV-formaat zijn. Doordat Excel-tabbladen opgeslagen kunnen worden in een CSV-file is dit dan ook een logische keuze. En zal ToThePoint geen extra moeilijkheden ondervinden als ze dit verder willen implementeren in de arcademachine.
+Een onmisbaar onderdeel om aan machine learning te doen is uiteraard de data. Tijdens deze bachelorproef wordt er gebruik gemaakt van zelf gegenereerde data in Excel. Het systeem om data uit te lezen afkomstig van de arcademachine is niet tijdig klaar geraakt om te gebruiken. De data die uit de arcademachine ontvangen zal worden zal in CSV-formaat zijn. Doordat Excel-tabbladen opgeslagen kunnen worden in een CSV-file is dat dan ook een logische keuze. En zal ToThePoint geen extra moeilijkheden ondervinden als ze dit verder willen implementeren in de arcademachine.
 Er zullen zo'n 500 metingen beschikbaar zijn die kunnen ingelezen worden in het programma. 
 
-We willen uiteraard weten hoe goed het algoritme scoort dit kunnen we testen door testdata te voorzien. De dataset die we uit Excel halen zal opgesplitst worden in trainingsdata en testdata. Het algoritme zal met de trainingsdata een hypothese vormen die ervoor zal zorgen dat ook nieuwe of nog ongekende data een goede voorspelling krijgt. Daarom is het belangrijk om een dataset te hebben die data bevat die nog niet eerder gebruikt is door het algoritme. Enkel op deze manier kunnen we zeker zijn dat het algoritme een goede hypothese heeft gemaakt. Als testdata nemen we 20\% van de hele dataset. Naar mate we verdere stappen doen in de ontwikkeling zal de dataset uitgebreid worden. 
+We willen uiteraard weten hoe goed het algoritme scoort. Dit kunnen we testen door testdata te voorzien. De dataset die we uit Excel halen zal opgesplitst worden in trainingsdata en testdata. Het algoritme zal met de trainingsdata een hypothese vormen die ervoor zal zorgen dat ook nieuwe of nog ongekende data een goede voorspelling krijgt. Daarom is het belangrijk om een dataset te hebben die data bevat die nog niet eerder gebruikt is door het algoritme. Enkel op deze manier kunnen we zeker zijn dat het algoritme een goede hypothese heeft gemaakt. Als testdata nemen we 20\% van de hele dataset. Naarmate we verdere stappen doen in de ontwikkeling zal de dataset uitgebreid worden. 
 
 \subsection{Frameworks}
-Zoals in de inleiding reeds besproken was zijn er verschillende soorten frameworks die reeds geïmplementeerde algoritmen hebben. Een eerste mogelijk framework was TensorFlow van Google. Dit is ontwikkeld in Python, de algoritmen die hierin voorzien zijn, zijn voornamelijk neurale netwerken of deep learning algoritmen. Het is mogelijk om ook eenvoudigere algoritmen te gebruiken maar daar ligt de specialiteit niet op. En dit in combinatie met een taal die ik niet machtig ben lijkt mij geen goede keuze. Er zijn nog een aantal andere frameworks die gemaakt zijn in andere programmeertalen zoals Javascript, Node.js, Java, etc. 
+Zoals in de inleiding reeds besproken werd, zijn er verschillende soorten frameworks die reeds geïmplementeerde algoritmen hebben. Een eerste mogelijk framework was TensorFlow van Google. Dit is ontwikkeld in Python. De algoritmen die hierin voorzien zijn, zijn voornamelijk neurale netwerken of deep learning algoritmen. Het is mogelijk om ook eenvoudigere algoritmen te gebruiken, maar daar ligt de specialiteit niet op. En dat in combinatie met een taal die ik niet machtig ben, lijkt mij geen goede keuze. Er zijn nog een aantal andere frameworks die gemaakt zijn in andere programmeertalen zoals Javascript, Node.js, Java, etc. 
 
-Accord-framework is daar een van, dit is ontwikkeld in .NET. Alle algoritmen die nodig zijn om deze bachelorproef tot een succesvol einde te brengen zijn beschikbaar. \newline
-Door te werken met het Accord-framework bestaat er een mogelijk om in de toekomst een webapplicatie te ontwikkelen. Dit openend dus ook nog extra mogelijkheden om te experimenteren met Artificiële Intelligentie. 
+Accord-framework is daar één van. Dit framework is ontwikkeld in .NET. Alle algoritmen die nodig zijn om deze bachelorproef tot een succesvol einde te brengen zijn beschikbaar. \newline
+Door te werken met het Accord-framework bestaat er een mogelijkheid om in de toekomst een webapplicatie te ontwikkelen. Dit opent dus ook nog extra mogelijkheden om te experimenteren met Artificiële Intelligentie. 
 \newline
 .NET is een nog niet zo'n populaire taal om aan artificiële intelligentie te doen maar er zit potentieel in. Doordat .NET vele gelijkenissen heeft met Java is er een nog groter publiek die hiermee aan de slag kan.
 \newline
@@ -27,14 +27,14 @@ Door deze mogelijkheden lijkt dit dan ook het meest geschikte framework om aan h
 
 \section{Fase 1}
 \label{sec:Fase1}
-De eerste stap om een programma te maken om voorspellingen te doen is de data maken. Omdat dit ook nog maar de eerste fase is beginnen we gemakkelijk. Dit wil zeggen dat we de computer een eerste voorspelling laten doen tussen twee totaal verschillende spelletjes. We nemen Pacman en Mortal Kombat (schietspel) om te starten. Pacman kan gespeeld worden enkel d.m.v. joystickbewegingen. Om Mortal Kombat te spelen heb je veel de knoppen nodig maar ook de joystick.  Nu als mens is het gemakkelijk om dit verschil te kunnen zien, als er knoppen gebruikt geweest zijn kunnen we concluderen dat de speler Mortal Kombat aan het spelen was. 
+De eerste stap om een programma te maken om voorspellingen te doen is de data maken. Omdat dit ook nog maar de eerste fase is, beginnen we gemakkelijk. Dat wil zeggen dat we de computer een eerste voorspelling laten doen tussen twee totaal verschillende spelletjes. We nemen Pacman en Mortal Kombat (schietspel) om te starten. Pacman kan gespeeld worden enkel d.m.v. joystickbewegingen. Om Mortal Kombat te spelen heb je zowel de knoppen als de joystick nodig.  As mens is het gemakkelijk om het verschil te kunnen zien. Als er knoppen gebruikt geweest zijn, kunnen we concluderen dat de speler Mortal Kombat aan het spelen was. 
 
 \subsection{Data}
 \label{sec:DataFase1}
 De eerste dataset is zelf gegenereerd zonder echte input van de arcademachine omdat het systeem die de data zal inlezen nog in ontwikkeling is bij ToThePoint. 
-In Excel zijn er drie kolommen voorzien een kolom voor het aantal keer dat de knoppen ingedrukt zijn geweest gedurende twee minuten. Dan het aantal keer dat de joystick bewogen is in diezelfde tijdsspanne. De derde kolom staat het ID van het spel. 
+In Excel zijn er drie kolommen voorzien een kolom voor het aantal keer dat de knoppen ingedrukt zijn geweest gedurende twee minuten. Een tweede kolom voor het aantal keer dat de joystick bewogen is in diezelfde tijdsspanne. En een derde kolom met het ID van het spel. 
 In figuur \ref{fig:regressieFig} op pagina \pageref{fig:regressieFig} ziet u random 10 voorbeelden uit de dataset.
-Het GameID 0 wijst op Pacman en 1 is dan Mortal Kombat. Als u de rijen van Pacman bekijkt dan valt op dat de ButtonPresses niet 0 zijn, dit komt omdat er bij het begin van een spel soms eens geprobeerd wordt wat de functies van de knoppen zijn. 
+Het GameID 0 wijst op Pacman en 1 is dan Mortal Kombat. Als u de rijen van Pacman bekijkt dan valt het op dat de ButtonPresses niet 0 zijn, dit komt omdat er bij het begin van een spel soms eens geprobeerd wordt wat de functies van de knoppen zijn. 
 
 \begin{figure}[]
 	\centering
@@ -49,21 +49,21 @@ Het GameID 0 wijst op Pacman en 1 is dan Mortal Kombat. Als u de rijen van Pacma
 \subsection{Logistische regressie}
 \label{sec:Logistischeregressie-fase1}
 
-Het eerste algoritme die we gaan testen is logistische regressie. In fase 1 gaan we slecht voorspellingen doen tussen twee verschillende spellen vandaar dat we binaire logistische regressie gaan toepassen die eerder uitgelegd is in sectie \ref{sec:Binaire-logistische-regressie}.
+Het eerste algoritme die we gaan testen is logistische regressie. In fase 1 gaan we slechts voorspellingen doen tussen twee verschillende spelletjes. We gaan binaire logistische regressie toepassen die eerder uitgelegd is in sectie \ref{sec:Binaire-logistische-regressie}.
 
-In de code \ref{code:linaireRegressieTweeKlassen} op pagina \pageref{code:linaireRegressieTweeKlassen} ziet u de implementatie van de binaire logistische regressie. Er worden twee parameter meegegeven in de functie, input en output. De input is een dubbele array van \textit{double} waarden. Daarin zitten rijen met twee kolommen die de ButtonPresses en JoystickMovements bevatten. De ouput parameter bevat een enkele array die het GameID bevat. Hoe deze data ingelezen wordt kan u zien in de code \ref{code:dataInlezen} op pagina \pageref{code:dataInlezen}. Met een ExcelReader krijgen we een DataTable die we met de methode ToJagged kunnen omvormen naar ons gewenste dubbele array met de kolomnamen kunnen we de kolommen selecteren. Deze methode is onderdeel van het Accord-framework. 
+In de code \ref{code:linaireRegressieTweeKlassen} op pagina \pageref{code:linaireRegressieTweeKlassen} ziet u de implementatie van de binaire logistische regressie. Er worden twee parameters meegegeven in de functie, input en output. De input is een dubbele array van \textit{double} waarden. Daarin zitten rijen met twee kolommen die de ButtonPresses en JoystickMovements bevatten. De ouput parameter bevat een enkele array die het GameID bevat. Hoe deze data ingelezen wordt, kan u zien in de code \ref{code:dataInlezen} op pagina \pageref{code:dataInlezen}. Met een ExcelReader krijgen we een DataTable die we met de methode ToJagged kunnen omvormen naar ons gewenste dubbele array. Met de kolomnamen kunnen we de kolommen selecteren. Die methode is onderdeel van het Accord-framework. 
 
 
 %\textit{Wat de LearningRate precies inhoudt wordt later samen met gradient descent uitgelegd (gradient descent zal in het theoretische deel uitgelegd worden)}
 
 \subsubsection{Resultaten}
 \paragraph{Snelheid van het algoritme} 
-Een eerste belangrijke metric om algortimen te kunnen vergelijken is de snelheid. Het zou niet correct zijn om een stopwatch te laten lopen bij het begin van het programma en te stoppen wanneer het programma klaar is. De tijd om de data in te laden in het programma, de omzetting naar arrays, de objecten die worden geïnitialiseerd, ... is allemaal niet zo belangrijk. Wat wel interessant is, is de tijd die het algoritme nodig heeft om tot een hypothese te komen. Dit gebeurt in de \textit{Learn} methode. 
+Een eerste belangrijke metric om algortimen te kunnen vergelijken is de snelheid. Het zou niet correct zijn om een stopwatch te laten lopen bij het begin van het programma en te stoppen wanneer het programma klaar is. De tijd om de data in te laden in het programma, de omzetting naar arrays, de objecten die worden geïnitialiseerd, ... zijn allemaal niet zo belangrijk. Wat wel interessant is, is de tijd die het algoritme nodig heeft om tot een hypothese te komen. Dit gebeurt in de \textit{Learn} methode. 
 Net voor die lijn code wordt uitgevoerd starten we een stopwatch die direct erna wordt gestopt. Omdat de duur verschillend kan zijn nemen we het gemiddelde van 20 metingen. 
 Doordat deze dataset slechts 500 voorbeelden bevat en de verschillen tussen de spelletjes Pacman en Mortal Kombat zeer duidelijk zijn heeft het algoritme slechts 4,5487 milliseconden nodig om een hypothese te maken. Dit resultaat is het gemiddelde van twintig testen. 
 \paragraph{F-score} 
 
-Doordat deze dataset zo simpel is  heeft het algoritme geen probleem om de testdata, die uiteraard ook even duidelijk is, te classificeren. De precisie en rappel, die we in sectie \ref{sec:fscore} hebben uitgelegd, zijn dan logischerwijs 1
+Doordat deze dataset zo simpel is  heeft het algoritme geen probleem om de testdata, die uiteraard ook even duidelijk zijn, te classificeren. De precisie en rappel, die we in sectie \ref{sec:fscore} hebben uitgelegd, zijn dan logischerwijs 1.
 Zo bekomen we een F-score van 1 wat wil zeggen dat het algoritme foutloos is op de testdata.  
 
 
@@ -115,14 +115,14 @@ using (var table = new ExcelReader("../../datasetExcel.xls").GetWorksheet("Train
 \subsection{Support Vector Machine}
 \label{sec:supportvectormachine}
 Support Vector Machine is het tweede algoritme die we zullen gebruiken en vergelijken met logistische regressie. 
-We zijn nog altijd in de eerste fase dus vergelijken we twee klassen met elkaar. 
+We zijn nog altijd in de eerste fase en dus vergelijken we nog steeds twee klassen met elkaar. 
 De code voor Support Vector Machine vindt u in code \ref{code:svmBi} op pagina \pageref{code:svmBi}. 
 
 De parameters inputs en outputs worden opnieuw meegegeven nadat de data is opgehaald zoals we gezien hebben in code \ref{code:dataInlezen}. Vervolgens initialiseren we het SupportVectorMachine object. We geven in de constructor het aantal features mee (in het Accord-framework gebruiken ze inputs wat verwarrend kan zijn). Het aantal features in dit geval is 2 namelijk de kolommen 'ButtonPresses' en 'Joystickmovements'. Vervolgens wordt het optimalisatie algoritme gecreëerd met de nodige attributen die voor zichzelf spreken. Tot slot kan de SVM geoptimaliseerd worden d.m.v de Learn methode.  
 
 \subsubsection{Resultaten}
 \paragraph{Snelheid van het algoritme} 
-Om de snelheid van dit algoritme te meten plaatsen we opnieuw een stopwatch voor net voor het de lijn \textit{"svm = teacher.Learn(inputs, outputs)"}. En we stoppen die uiteraard net nadat deze lijn is uitgevoerd. Nadat het programma 20 keer uitgevoerd is geweest nemen we het gemiddelde van de resultaten. De Support Vector Machine heeft 34,4823 milliseconden nodig om een hypothese te ontwikkelen. En dit met een standaarddeviatie van slechts 1,3146.
+Om de snelheid van dit algoritme te meten plaatsen we opnieuw een stopwatch net voor de lijn \textit{'svm = teacher.Learn(inputs, outputs)'}. En we stoppen die uiteraard net nadat deze lijn is uitgevoerd. Nadat het programma 20 keer uitgevoerd is geweest nemen we het gemiddelde van de resultaten. De Support Vector Machine heeft 34,4823 milliseconden nodig om een hypothese te ontwikkelen. En dit met een standaarddeviatie van slechts 1,3146.
 
 \paragraph{F-score}
 De F-score van SVM is dezelfde als logistische regressie omdat ook hier foutloos alle voorbeelden voorspelt worden.
@@ -154,7 +154,7 @@ SupportVectorMachine svm = new 			SupportVectorMachine(inputs: 2);
 \subsection{Conclusie na fase 1}
 Aangezien dit een simpele start is met twee duidelijk verschillende spelletjes hebben beide algoritmen een perfecte F-score van 1.  Het verschil wordt nu dus gemaakt op de snelheid. Logistische regressie had slechts 4,5487 milliseconden nodig om een foutloze hypothese te verkrijgen terwijl de SVM daar gemiddeld 34,4823 over gedaan heeft. Dit is $\pm$ 6 keer zo lang. 
 \newline
-Op dit ogenblik krijgt logistische regressie logischerwijs nog de voorkeur. Uiteraard zal in de arcade machine meerdere spelletjes beschikbaar zijn. Ook zullen er meer dan twee metrics zijn waarop we spelletjes kunnen vergelijken. 
+Op dit ogenblik krijgt logistische regressie logischerwijs nog de voorkeur. Uiteraard zullen er in de arcade machine meerdere spelletjes beschikbaar zijn. Ook zullen er meer dan twee metrics zijn waarop we spelletjes kunnen vergelijken. 
 
 
 \input{fase2}

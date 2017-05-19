@@ -11,18 +11,28 @@
 %% mogelijke manier toegepast hebt om een antwoord te vinden op de
 %% onderzoeksvraag.
 
+\section{Stappenplan}
+\label{sec:stappenplan}
+Een project met machine learning kan je niet van de een op de andere dag opstarten. Er gaan verschillende processen aan vooraf. Het is niet mogelijk om één van de vele algoritmen te kiezen binnen machine learning en daarmee aan de slag te gaan. De keuze van algoritme is een eerste belangrijke stap want niet alle algoritmen kunnen gebruikt worden voor eender welke casus. Die zijn onderverdeeld in verschillende types. 
+
+Nadat er twee algoritmen gekozen zijn moeten we weten hoe ze in elkaar zitten. De algemene uitleg zal gegeven worden samen met een wiskundige verdieping. 
+De volgende stap is dan de algoritmen implementeren. Dit zal ook stap voor stap gebeuren. In een eerste stap zullen we voorspellingen doen tussen twee duidelijk verschillende klassen zoals Pacman en Mortal Kombat. We maken ook slechts gebruik van een inputvector met twee parameters. Tijdens iedere fase gaan er enkele metingen gebeuren zodat we twee algoritmen kunnen vergelijken met elkaar. Een volgende stap zal dan zijn om nog enkele parameters toe te voegen zodat het verschil minder duidelijk wordt. Vervolgens gaan we een 3de en 4de spel toevoegen namelijk Tetris en Arkanoid. 
+
+Na al deze stappen hebben we genoeg informatie om een duidelijke conclusie te maken en het meest geschikte algoritme te kiezen. 
+
+
 
 \section{Keuze algoritmen}
 \label{sec:keuze-algoritmen}
 Om goede resultaten te behalen is het uiterst belangrijk dat de juiste algoritmen gebruikt worden. Zo zijn er bepaalde algoritmen die helemaal niet bruikbaar zouden kunnen zijn voor deze casus. Er zal hieronder verder uitgelegd worden hoe we een mogelijk algoritme kunnen vinden.
 
-\subsection{Superviseerd vs Ongesuperviseerd leren}
+\subsection{Gesuperviseerd vs Ongesuperviseerd leren}
 \label{sec: superviseerd-vs-ongesuperviseerd-leren}
-Machine learning kan onderverdeelt worden in verschillende types van algoritmen. Deze zijn gesuperviseerd leren, ongesuperviseed leren en reinforcement leren. Dit laatste type is niet van toepassing voor deze casus. Met dit type wordt er geleerd op basis van positieve signalen (beloningen). Er wordt ook niet gebaseerd op een dataset en aangezien wij in bezit zijn van datasets is dit type overbodig om verder te onderzoeken. 
+Machine learning kan onderverdeeld worden in verschillende types van algoritmen. Deze zijn gesuperviseerd leren, ongesuperviseed leren en reinforcement leren. Dit laatste type is niet van toepassing voor deze casus. Met dit type wordt er geleerd op basis van positieve signalen (beloningen). Er wordt ook niet gebaseerd op een dataset en aangezien wij in bezit zijn van datasets is dit type overbodig om verder te onderzoeken. 
 
-\subsection*{Superviseerd leren}
+\subsection*{Gesuperviseerd leren}
 \label{sec: superviseerd-leren}
-Dit type heeft als doel om een hypothese te bekomen die dan zal kunnen gebruikt worden om nieuwe ongekende input toe te wijzen aan een label die voorkwam in de eerdere trainingsdataset. De trainingsdataset bestaat uit verschillende parameters en een label. Onder dit type kan je algoritmen vinden die voor zowat alle cases gebruikt kunnen worden. Deze zijn echter wel nog opgedeeld in drie verschillende categorieën. Zo kan je een nieuwe waarde voorspellen op basis van vroegere resultaten, dit wordt regressie genoemd. Verder heb je classificatiealgoritmen hiermee kan een input toegewezen worden aan een bepaalde klasse met een label. En als laatste bestaan er clusteringsalgoritmen hiermee kan je ook onderverdelingen maken in klassen maar deze hebben geen label. Clustering en classificatie lijken op elkaar maar met classificatie weten we ook precies wat de data voorstelt. 
+Dit type heeft als doel om een hypothese te bekomen die dan zal kunnen gebruikt worden om nieuwe ongekende input toe te wijzen aan een label die voorkwam in de eerdere trainingsdataset. De trainingsdataset bestaat uit verschillende parameters en een label. Onder dit type kan je algoritmen vinden die voor zowat alle cases gebruikt kunnen worden. Deze zijn echter wel nog opgedeeld in drie verschillende categorieën. Zo kan je een nieuwe waarde voorspellen op basis van vroegere resultaten, dat wordt regressie genoemd. Verder heb je classificatiealgoritmen. Hiermee kan een input toegewezen worden aan een bepaalde klasse met een label. En als laatste bestaan er clusteringsalgoritmen. Daarmee kan je ook onderverdelingen maken in klassen maar deze hebben geen label. Clustering en classificatie lijken op elkaar maar met classificatie weten we ook precies wat de data voorstelt. 
 
 \subsection*{Ongesuperviseerd leren}
 \label{sec: ongesuperviseerd-leren}
@@ -41,24 +51,24 @@ In deze casus beschikken we over een gelabelde dataset. Het doel is om met een g
 \subsection{Logistische regressie}
 \label{sec:logistische-regressie}
 
-Logistische regressie is het eerste algoritme die we zullen bespreken in deze bachelorproef. Ondanks de naam doet vermoeden, valt dit algoritme niet onder de categorie 'regressie' zoals we in sectie \ref{sec: superviseerd-leren} superviseerd leren hebben gezien. Dit is wel degelijk een classificatiealgoritme die gebruik maakt van de logistische functie. Aan de hand van de hypothese kunnen er voorspellingen gemaakt worden. Een hypothese is een functie met x-aantal onbekenden waar de inputvectors ingevuld zullen worden. Gedurende het trainingsproces wordt de hypothese geoptimaliseerd. Er zullen meerdere spelletjes voorzien zijn op de arcademachine dus ook meerdere klassen. We starten binaire logistische regressie die later zal gebruikt worden bij twee mogelijke methoden om voorspellingen te maken met meerdere klassen. 
+Logistische regressie is het eerste algoritme die we zullen bespreken in deze bachelorproef. Ondanks de naam doet vermoeden, valt dit algoritme niet onder de categorie 'regressie' zoals we in sectie \ref{sec: superviseerd-leren} gesuperviseerd leren hebben gezien. Dit is wel degelijk een classificatiealgoritme die gebruik maakt van de logistische functie. Aan de hand van de hypothese kunnen er voorspellingen gemaakt worden. Een hypothese is een functie met x-aantal onbekenden waar de inputvectors ingevuld zullen worden. Gedurende het trainingsproces wordt de hypothese geoptimaliseerd. Er zullen meerdere spelletjes voorzien zijn op de arcademachine en dus ook meerdere klassen. We starten binaire logistische regressie die later zal gebruikt worden bij twee mogelijke methoden om voorspellingen te maken met meerdere klassen. 
 
 \subsubsection{Binaire logistische regressie}
 \label{sec:Binaire-logistische-regressie}
 
-Er moeten enkele puntjes uitgelegd worden voordat we aan de effectieve uitleg kunnen beginnen. Eerst en vooral moeten we weten wat we willen voorspellen. Aangezien we beginnen met binaire logistische regressie maken we een voorspelling tussen twee klassen. Onze vraag kan dus als volgt luiden "Speelt de gebruiker Mortal Kombat of niet?". De waarde \textit{y} zal ons het resultaat geven. \textit{Y} kan slechts twee waarden aannemen $y \; \in \; \{0,1\}$ met 1 als de positieve klasse, Mortal Kombat. Als \textit{y} 0 is dan duidt het op de negatieve klasse, in onze data stelt dit Pacman voor. 
+Er moeten enkele puntjes uitgelegd worden voordat we aan de effectieve uitleg kunnen beginnen. Eerst en vooral moeten we weten wat we willen voorspellen. Aangezien we beginnen met binaire logistische regressie maken we een voorspelling tussen twee klassen. Onze vraag kan dus als volgt luiden "Speelt de gebruiker Mortal Kombat of niet?". De waarde \textit{y} zal ons het resultaat geven. \textit{Y} kan slechts twee waarden aannemen $y \; \in \; \{0,1\}$ met 1 als de positieve klasse, Mortal Kombat. Als \textit{y} 0 is dan duidt het op de negatieve klasse. In onze data stelt dit Pacman voor. 
 
 Logistische regressie start vanuit de hypothese van lineaire regressie die als volgt is: 
 $$
 h(x_{i}) \:= \: \theta^{T}x_{i} \:=\: \theta_{0} \:+ \:\theta_{1}x_{i1} \:+ \: ...\: + \: \theta_{n}x_{in}
 $$
-$ \theta^{T}$ is de getransponeerde vector van parameters die door het algoritme gegenereerd worden. Als de uitkomst van deze vergelijking $\geq 0$ dan zal de positieve klasse voorspelt worden, de andere klasse zal dan gegeven worden wanneer $h(x) < 0$. 
+$ \theta^{T}$ is de getransponeerde vector van parameters die door het algoritme gegenereerd worden. Als de uitkomst van deze vergelijking $\geq 0$ dan zal de positieve klasse voorspeld worden. De andere klasse zal dan gegeven worden wanneer $h(x) < 0$. 
 
-In figuur \ref{fig:sigmoid-functie} op pagina \pageref{fig:sigmoid-functie}zien we de sigmoïdfunctie getekend.  Daaruit kunnen we afleiden dat wanneer  $\theta^{T}x_{i} = 0$ de sigmoïd functie gelijk zal zijn aan 0.5. Beide klassen hebben dus even veel kans om gekozen te worden. Naar mate  $\theta^{T}x_{i}$ van waarde verhoogt zal de waarschijnlijkheid voor de positieve klasse ook verhogen. 
+In figuur \ref{fig:sigmoid-functie} op pagina \pageref{fig:sigmoid-functie} zien we de sigmoïdfunctie getekend.  Daaruit kunnen we afleiden dat wanneer  $\theta^{T}x_{i} = 0$ de sigmoïd functie gelijk zal zijn aan 0.5. Beide klassen hebben dus even veel kans om gekozen te worden. Naar mate  $\theta^{T}x_{i}$ van waarde verhoogt zal de waarschijnlijkheid voor de positieve klasse ook verhogen. 
 
 De logistische regressie is niet meer dan de sigmoïd functie van die lineaire hypothese. Zo krijgen we $h(x) = g(\theta^{T}x)$ . De sigmoïd functie wordt ook wel logistische functie genoemd. Vandaar de naam logistische regressie. 
 $$
-g(x) \: = \: {\frac{1}{1+e^{-x}}} \: => \: h(x) \: = \:{\frac{1}{1+e^{-\theta^{T}x }}}
+g(x) \: = \: {\frac{1}{1+e^{-x}}} \: => \: h(x) \: = \:{\frac{1}{1+e^{-\theta^{T} }}}
 $$
 
 De eigenschap van een sigmoïd functie is dat het resultaat altijd zal voldoen aan volgende voorwaarde: $ 0 \leq h(x) \leq1$. 
@@ -89,33 +99,33 @@ Nu weten we nog niet wat de waarde van $h(x)$ voor logistische regressie precies
 
 \subsubsection{Multiklasse logistische regressie}
 \label{sec:Multiklasse-logistische-regressie}
-Wat u uit de naam al kan afleiden is dat dit een algoritme is om een classificatie te maken over meerdere klassen. Dit kan met twee methoden gedaan worden. De one-vs-one methode of de one-vs-rest(/all) methode. 
+Wat u uit de naam al kan afleiden is dat dit een algoritme is om een classificatie te maken over meerdere klassen. Dit kan met twee methodes gedaan worden. De one-vs-one methode of de one-vs-rest(/all) methode. 
 \subparagraph{One-vs-all}
 Dit is de gemakkelijkste van de twee methoden. Zoals de naam al doet vermoeden vergelijken we één klasse tegenover alle andere klassen. Als er \textit{n} aantal klassen zijn dan zullen er \textit{n} hypothesen $h^{(\,k\,)}$ met $k \in \{\,Pacman, \, Mortal \:Kombat, \, Tetris, \,..\}$ gemaakt worden. \textit{k} stelt de positieve klasse voor en alle andere klassen samen is dan één negatieve klasse. \newline
-Voor een nieuwe inputvector \textit{x} die moet geclassificeerd worden gaat de methode als volgt te werk. $h^{(k)} (x)$ geeft een waarde terug die de waarschijnlijkheid uitdrukt dat x tot de klasse \textit{k} behoort. Dit wordt voor alle \textit{n} hypothesen gedaan. De klasse met de hoogste waarschijnlijkheid wordt dan logischerwijs gekozen als de voorspelde klasse waar \textit{x} toe behoort. 
+Voor een nieuwe inputvector \textit{x} die moet geclassificeerd worden, gaat de methode als volgt te werk. $h^{(k)} (x)$ geeft een waarde terug die de waarschijnlijkheid uitdrukt dat x tot de klasse \textit{k} behoort. Dit wordt voor alle \textit{n} hypothesen gedaan. De klasse met de hoogste waarschijnlijkheid wordt dan logischerwijs gekozen als de voorspelde klasse waar \textit{x} toe behoort. 
 \subparagraph{One-vs-one}
 Met deze techniek vergelijken we twee klassen met elkaar zoals we gezien hebben in sectie \ref{sec:Binaire-logistische-regressie} binaire logistische regressie. Er worden dus opnieuw meerdere hypothesen gemaakt maar anders dan in one-vs-all worden er nu combinaties van twee klassen gebruikt wat er zo uitziet $h^{(\,k,\,m)}$. \textit{k} is in dit geval de positieve klasse en \textit{m} de negatieve. In totaal zullen er $n(n-1)/2$ hypothesen gemaakt worden.
 Om te bepalen tot welke klasse een nieuwe inputvector \textit{x} behoort berekenen we $h^{(k,m)}(x)$. Wanneer $h^{(k,m)}\;(x)$ $\geq 0.5$ krijgt de positieve klasse (\textit{k}) een "punt". Dit gebeurt voor alle hypothesen en de klasse met het meest aantal punten zal uiteindelijk het resultaat zijn van het algoritme. 
 
 \subsubsection{Optimaliseren van algoritme}
 \label{sec:Optimaliseren-algoritme}
-Om een zo'n correct mogelijke hypothese te verkrijgen moet er gebruik gemaakt worden van optimalisatietechnieken. Gradiënt descent is zo'n techniek die de parameters $\theta$ in de hypothese optimaliseert. Voordat gradiënt descent uitgelegd kan worden moet eerst de kostfunctie besproken worden. 
+Om een zo correct mogelijke hypothese te verkrijgen moet er gebruik gemaakt worden van optimalisatietechnieken. Gradiënt descent is zo'n techniek die de parameters $\theta$ in de hypothese optimaliseert. Voordat gradiënt descent uitgelegd kan worden moet eerst de kostfunctie besproken worden. 
 
 \paragraph{Kostfunctie logistische regressie}
 \label{par:kostfunctie-log}
-Een kostfunctie wordt genoteerd als $J(\theta)$. Die functie drukt de gemiddelde kost van de trainingsset met parameters $\theta$ uit. Aan de hand van gradiënt descent is het dan mogelijk om de parameters te optimaliseren zodat de kostfunctie geminimaliseerd wordt. Hoe lager de kostfunctie is hoe beter de hypothese.
+Een kostfunctie wordt genoteerd als $J(\theta)$. Die functie drukt de gemiddelde kost van de trainingsset met parameters $\theta$ uit. Aan de hand van gradiënt descent is het dan mogelijk om de parameters te optimaliseren zodat de kostfunctie geminimaliseerd wordt. Hoe lager de kostfunctie is, hoe beter de hypothese.
 De kostfunctie voor logistische regressie ziet er als volgt uit: 
 $$ 
 J(\theta) \; = \frac{1}{m}\sum_{i=1}^{m} \;   Kost (h_{\theta}(x^{(i)}), y^{(i)} )  
 $$
 
-De kost wordt als volgt berekent:
+De kost wordt als volgt berekend:
 $$Kost (h_{\theta}(x), y) \; = \; -y\ln(h_{\theta}(x)) \;- \;(1-y) \ln(1-h_{\theta}(x))  \;\;\;\; met \; y \in \{0,1\}$$
 
 We stellen \textit{y} gelijk aan 1. Dan zien we dat eigenlijk enkel het eerste deel van de functie ($-y\ln(h_{\theta}(x))$) van belang zal zijn want het tweede deel ($- (1-y) \ln(1-h_{\theta}(x))$ zal nul zijn omdat 1-\textit{y} dan nul zal zijn en dus het product ook nul is. Zo krijgen we: 
 \newline $Kost (h_{\theta}(x), y) \; = \; -\ln(h_{\theta}(x))$. Op deze manier komen we uit bij de rode kostfunctie die u ziet in figuur \ref{fig:kostfunctie} p\pageref{fig:kostfunctie}.
 
-$h_{\theta}(x)$ is de hypothese die uitgelegd is in \ref{sec:Binaire-logistische-regressie} binaire logistische regressie. Dus die drukt de waarschijnlijkheid uit dat een vector \textit{x} positief of negatief is. Wanneer we een perfect voorspelling willen dan zou de kost 0 moeten zijn enkel zo ben je volledig zeker dat het label die aan \textit{x} wordt toegekend 100\% positief of negatief is. Als de hypothese zo goed als zeker is dat het vector positief is zal de kost nog dicht bij nul zijn. Eens $h(x) > 0.5$ zal de kost sneller stijgen. Ditzelfde principe geldt voor de negatieve voorbeelden. De bedoeling is om de kost zo laag mogelijk te krijgen.
+$h_{\theta}(x)$ is de hypothese die uitgelegd is in \ref{sec:Binaire-logistische-regressie} binaire logistische regressie. Dus die drukt de waarschijnlijkheid uit dat een vector \textit{x} positief of negatief is. Wanneer we een perfecte voorspelling willen dan zou de kost 0 moeten zijn. Enkel zo ben je volledig zeker dat het label die aan \textit{x} wordt toegekend 100\% positief of negatief is. Als de hypothese zo goed als zeker is dat het vector positief is zal de kost nog dicht bij nul zijn. Eens $h(x) > 0.5$ zal de kost sneller stijgen. Datzelfde principe geldt voor de negatieve voorbeelden. De bedoeling is om de kost zo laag mogelijk te krijgen.
 
 De kostfunctie in één uitdrukking is: 
 $$ 
@@ -123,7 +133,7 @@ min \;\; -\frac{1}{m}\;\sum_{i=1}^{m} \;  y^{(i)}\ln(h_{\theta}(x^{(i)})) \;- \;
 $$
 
 Er zijn nog andere kostfuncties die gebruikt kunnen worden maar deze wordt in het algemeen altijd gebruikt.
-De functie kan afgeleid worden door een principe binnen statistiek namelijk het 'maximum likelihood estimation'-principe Dit is een manier om parameters te zoeken voor verschillende modellen zoals logistische regressie. Deze functie is ook convex. Convex is een eigenschap die gebruikt wordt voor optimalisatiefuncties. Dit houdt onder meer in dat de functie het globaal minimum bereikt. 
+De functie kan afgeleid worden door een principe binnen statistiek namelijk het 'maximum likelihood estimation'-principe Dit is een manier om parameters te zoeken voor verschillende modellen zoals logistische regressie. Deze functie is ook convex. Convex is een eigenschap die gebruikt wordt voor optimalisatiefuncties. Dat houdt onder meer in dat de functie het globaal minimum bereikt. 
 
 \begin{figure}
 	\centering
@@ -152,16 +162,16 @@ De functie kan afgeleid worden door een principe binnen statistiek namelijk het 
 		
 		\end{axis}
 		\end{tikzpicture}
-	\caption{Visualisatie functies}
+	\caption{Visualisatie kostfuncties}
 	\label{fig:kostfunctie}
 \end{figure}
 
 \subsubsection{Gradient descent}
 \label{sec:gradient-descent}
-Gradient descent is een optimalisatiealgoritme die veel gebruikt wordt voor logistische regressie. Op deze manier is het mogelijk om de parameters $\theta$ te minimaliseren zodat de hypothese goede voorspellingen kan doen.
-Gradient descent vereist een continue afleidbare functie, de kostfunctie die we zonet besproken hebben voldoet aan die vereisten. Er is ook een functie \textit{g} nodig die een vector teruggeeft als gradiënt en een stapgrootte $\alpha$. De stapgrootte zorgt ervoor dat het algoritme naar een lokaal of globaal minimum kan convergeren. Wanneer het algoritme stopt in een lokaal minimum heb je niet altijd de beste oplossing tenzij het lokaal minimum ook het globaal minimum is. Indien dit niet het geval is kan gradient descent een aantal keer herhaald worden zodat het globaal minimum kan gevonden worden. Het belang van een goede stapgrootte $\alpha$ is belangrijk. Wanneer die te groot is dan zou het kunnen dat het algoritme in een oneindige lus geraakt. Of als $\alpha$ te klein is dan kan het zeer lang duren tegen dat er een lokaal minimum gevonden is. 
+Gradient descent is een optimalisatiealgoritme dat veel gebruikt wordt voor logistische regressie. Op deze manier is het mogelijk om de parameters $\theta$ te minimaliseren zodat de hypothese goede voorspellingen kan doen.
+Gradient descent vereist een continue afleidbare functie. De kostfunctie die we zonet besproken hebben voldoet aan die vereisten. Er is ook een functie \textit{g} nodig die een vector teruggeeft als gradiënt en een stapgrootte $\alpha$. De stapgrootte zorgt ervoor dat het algoritme naar een lokaal of globaal minimum kan convergeren. Wanneer het algoritme stopt in een lokaal minimum heb je niet altijd de beste oplossing tenzij het lokaal minimum ook het globaal minimum is. Indien dit niet het geval is kan gradient descent een aantal keer herhaald worden zodat het globaal minimum kan gevonden worden. Het belang van een goede stapgrootte $\alpha$ is belangrijk. Wanneer die te groot is dan zou het kunnen dat het algoritme in een oneindige lus geraakt. Of als $\alpha$ te klein is dan kan het zeer lang duren tegen dat er een lokaal minimum gevonden is. 
 
-Voor iedere parameter $\theta_{n}$ wordt volgende uitdrukking berekent en terug toegekend aan zichzelf. Tot de parameter amper nog verbetert. In implementaties is het mogelijk om te zeggen dat gradient descent moet stoppen wanneer het verschil van de nieuwe en oude parameter onder een bepaalde grens ligt. 
+Voor iedere parameter $\theta_{n}$ wordt volgende uitdrukking berekend en terug toegekend aan zichzelf tot de parameter amper nog verbetert. In implementaties is het mogelijk om te zeggen dat gradient descent moet stoppen wanneer het verschil van de nieuwe en oude parameter onder een bepaalde grens ligt. 
 $$
 \theta_{i} = \theta_{i} - \alpha\:\frac{\partial}{\partial\theta_{i}}(J(\theta_{i}, ... , \theta{n}))
 $$
@@ -171,24 +181,22 @@ $$
 \theta_{i} = \theta_{i} - \alpha\:\sum_{i=1}^{m}(h_{\theta}(x^{(i)})\:-\:y^{(i)} ) x_{j}^{(i) }
 $$
 
-\textbf{\textit{(Misschien nog voorbeeldje uitwerken en lokaal/globaal minimum uitleggen)}}
-
 
 \subsection{Support Vector Machine}
 \label{sec:Support-Vector-Machine}
 Support Vector Machine is een volgend gesuperviseerd leeralgoritme die zal besproken worden. 
-Andrew Ng is professor aan de Stanford University begon het deel support vectormachine in zijn cursus \autocite{cursusAndrewNg} met volgende zin.
+Andrew Ng, professor aan de Stanford University, begon het deel support vectormachine in zijn cursus \autocite{cursusAndrewNg} met volgende zin.
 \begin{quote}
 	SVMs are among the best (and many believe are indeed the best) ‘off-the-shelf’ supervised learning algorithms.
 \end{quote}
 
-SVMs scoren over het algemeen beter dan logistische regressie of neurale netwerken \autocite{vergelijkingSupervised}. Het is uiteraard mogelijk dat een van die twee beter scoort maar dit is allemaal afhankelijk van de dataset. Vandaar dat het een logische keuze is om dit algoritme te vergelijken met ons vorige, logistische regressie. 
+SVMs scoren over het algemeen beter dan logistische regressie of neurale netwerken \autocite{vergelijkingSupervised}. Het is uiteraard mogelijk dat één van die twee beter scoort, maar dat is allemaal afhankelijk van de dataset. Vandaar dat het een logische keuze is om dit algoritme te vergelijken met ons vorige, logistische regressie. 
 
-We maken gebruik van figuur \ref{fig:svm} op pagina \pageref{fig:svm} om de werking van een SVM uit te leggen. Daarna zal de kostfunctie uitgelegd worden die gebruikt wordt om het algoritme te optimaliseren. Dit alles is vereenvoudigd zodat het al mens makkelijker in te beelden is.
-Het concept van SVM klinkt eenvoudig. De bedoeling is om een hyperplane te vinden die tussen de dichtstbijzijnde vector van een klasse en de hyperplane een zo groot mogelijke marge heeft. U ziet in de figuur dat het mogelijk is om meerdere hyperplanes te tekenen maar niet iedere hyperplane heeft een even grote marge. Om de marge beter te begrijpen gaan we eventjes terug naar logistische regressie. Daar kregen we een waarschijnlijkheid dat vector \textit{x} van een bepaalde klasse is. Als $\theta^{T}x \geq 0$ was $y=1$ en vice versa. Het is logisch dat hoe verder $\theta^{T}x$ van 0 ligt hoe zekerder de klasse kan toegekend worden. Dit is net wat SVM bijbrengt, een marge zodat je vanaf een bepaalde zekerheid, marge, pas een klasse toekent. Een marge wiskundige noteren is als volgt: $\theta^{T}x^{i} \ll 0$. '$\ll$' betekent 'veel minder'. Als deze uitdrukking waar is, stelt $y^{i}$ de negatieve klasse voor.
+We maken gebruik van figuur \ref{fig:svm} op pagina \pageref{fig:svm} om de werking van een SVM uit te leggen. Daarna zal de kostfunctie uitgelegd worden die gebruikt wordt om het algoritme te optimaliseren. Dat alles is vereenvoudigd zodat het als mens makkelijker in te beelden is.
+Het concept van SVM klinkt eenvoudig. De bedoeling is om een hyperplane te vinden die tussen de dichtstbijzijnde vector van een klasse en de hyperplane een zo groot mogelijke marge heeft. U ziet in de figuur dat het mogelijk is om meerdere hyperplanes te tekenen, maar niet iedere hyperplane heeft een even grote marge. Om de marge beter te begrijpen gaan we eventjes terug naar logistische regressie. Daar kregen we een waarschijnlijkheid dat vector \textit{x} van een bepaalde klasse is. Als $\theta^{T}x \geq 0$ was $y=1$ en vice versa. Het is logisch dat hoe verder $\theta^{T}x$ van 0 ligt, hoe zekerder de klasse kan toegekend worden. Dit is net wat een SVM bijbrengt, een marge zodat je vanaf een bepaalde zekerheid, marge, pas een klasse toekent. Een marge wiskundig noteren is als volgt: $\theta^{T}x^{i} \ll 0$. '$\ll$' betekent 'veel minder'. Als deze uitdrukking waar is, stelt $y^{i}$ de negatieve klasse voor.
  
-Eerst en vooral wordt er een hyperplane gezocht die twee klassen van elkaar onderscheid. Zoals je in de figuur ziet is het mogelijk om meerdere hyperplanes (A,B) te maken. Die hyperplanes zijn van de vorm $h_{w,b}(x) = w^{T}x + b$ $w$ stelt nu $\theta_{n}^{T}$ voor en $b$ stelt $\theta_{0}$ voor. \textit{y} is nu geen element meer van {0,1} maar wel van {1,-1}. Als $h_{w,b}(x) > 1$ dan kunnen we stellen dat voor vector x een positieve klasse kan voorspelt worden. 
-We nemen nu hyperplane \textit{A} om verder op te bouwen. We weten ook dat \textit{A1} het functie voorschrijft $w x +b=1$ heeft en \textit{A2} dan  $w x +b=-1$. Op deze manier is het mogelijk om de marge tussen \textit{A1} en \textit{A2} te berekenen. En die dus te optimaliseren.
+Eerst en vooral wordt er een hyperplane gezocht die twee klassen van elkaar onderscheid. Zoals je in de figuur ziet, is het mogelijk om meerdere hyperplanes (A,B) te maken. Die hyperplanes zijn van de vorm $h_{w,b}(x) = w^{T}x + b$ $w$ stelt nu $\theta_{n}^{T}$ voor en $b$ stelt $\theta_{0}$ voor. \textit{y} is nu geen element meer van {0,1} maar wel van {1,-1}. Als $h_{w,b}(x) > 1$ dan kunnen we stellen dat voor vector x een positieve klasse kan voorspeld worden. 
+We nemen nu hyperplane \textit{A} om verder op te bouwen. We weten ook dat \textit{A1} de functie voorschrijft $w x +b=1$ en \textit{A2} dan  $w x +b=-1$. Op die manier is het mogelijk om de marge tussen \textit{A1} en \textit{A2} te berekenen en die dus te optimaliseren.
 
 \begin{figure}[]
 	\centering
@@ -209,19 +217,19 @@ min \;\; C\sum_{i=1}^{m} \; \left[ y^{(i)}\;cost_{1}(\theta^{T}(x^{(i)})) \;- \;
 $$
 
 Er zijn 2 grote wijzigingen. Het gedeelte $\ln(h_{\theta}\:(x^{(i)}))$ en $\ln(1-h_{\theta}\:(x^{(i)}))$ zijn vervangen door respectievelijk $cost_{1}\:(\theta^{T}\:(x^{(i)}))$ en $cost_{0}\:(\theta^{T}\:(x^{(i)})) $ 
-Die kost functies kan u zien in figuren \ref{fig:cost1} en \ref{fig:cost0}. Als u de functies bekijkt zie u dat er eerst een plat stuk is en dan pas vanaf 1 of -1 begint te stijgen. Dit komt door de marge die we eerder besproken hebben. Wanneer  $\theta^{T}\:(x^{(i)}) \geq 1$ dan kunnen we ervan uit gaan dat $y=1$.
+Die kostfuncties kan u zien in figuren \ref{fig:cost1} en \ref{fig:cost0} op pagina \pageref{fig:cost1}. Als u de functies bekijkt ziet u dat er eerst een plat stuk is en dan pas vanaf 1 of -1 begint te stijgen. Dat komt door de marge die we eerder besproken hebben. Wanneer  $\theta^{T}\:(x^{(i)}) \geq 1$ dan kunnen we ervan uit gaan dat $y=1$.
 \begin{figure}
 	\centering
 	\begin{minipage}{.5\textwidth}
 		\centering
 		\includegraphics[width=1\linewidth]{img/costEen}
-		\caption{$cost_{1}\:(\theta^{T}(x^{(i)}))$}
+		\caption{$cost_{1}\:(\theta^{T}(x^{(i)}))$  \autocite{cursusAndrewNg} }
 		\label{fig:cost1}
 	\end{minipage}%
 	\begin{minipage}{.5\textwidth}
 		\centering
 		\includegraphics[width=1\linewidth]{img/costNul}
-		\caption{$cost_{0}\:(\theta^{T}(x^{(i)})) $}
+		\caption{$cost_{0}\:(\theta^{T}(x^{(i)})) $  \autocite{cursusAndrewNg} }
 		\label{fig:cost0}
 	\end{minipage}
 \end{figure}
@@ -229,19 +237,19 @@ Die kost functies kan u zien in figuren \ref{fig:cost1} en \ref{fig:cost0}. Als 
 
 \subsection{Selectiecriteria}
 \label{sec:Selectiecriteria}
-Hoe weten we nu welk algoritme het best is om voorspellingen te doen op de arcade machine? We bespreken enkele selectiecriteria zodat de 2 algoritmen die we zonet besproken hebben kunnen vergelijken. 
+Hoe weten we nu welk algoritme het best is om voorspellingen te doen op de arcademachine? We bespreken enkele selectiecriteria zodat de 2 algoritmen die we zonet besproken hebben kunnen vergelijken. 
 Er zijn twee belangrijke factoren die beslissen of dat het ene algoritme beter is dan het andere voor een bepaalde dataset. 
 Als we de algoritmen gaan implementeren dan zal altijd exact dezelfde dataset en testset gebruikt worden per fase. De algoritmen worden beiden geïmplementeerd in Visual Studio 2015 en worden uitgevoerd zonder dat er een ander programma openstaat of draait in de achtergrond. Tussen de test wordt er ook nooit een ander programma geopend want het is altijd mogelijk dat die daarna nog in de achtergrond processen uitvoert. 
 
 \subsubsection{Snelheid}
-Snelheid is uiteraard een van de belangrijkste voorwaarden om een goed algoritme te zijn. Je wilt bijvoorbeeld geen 2 minuten wachten tegen dat je krijgt te weten wat de computer dacht dat je aan het spelen was. Een programma bestaat uit verschillende delen. Niet alle onderdelen van een programma zijn relevant voor deze bachelorproef. Zo heb je bijvoorbeeld het inlezen van de data. Dit proces zal even veel tijd in beslag nemen voor logistische regressie als voor vector support machine doordat dezelfde data gebruikt wordt voor beiden. Een tweede deel is natuurlijk de declaratie van variabelen en objecten dit gebeurt zodanig snel dat dit irrelevant is.\newline
-Dan heb je het leerproces of optimalisatieproces van een algoritme. Dit is wel belangrijk want hiermee kan het verschil gemaakt worden. Daarvoor gebruiken we de klasse Stopwatch die in het .NET framework voorzien is. Die wordt gestart net voor de start van het leerproces en gestopt net erna. Op deze manier kunnen we precies meten hoelang het algoritme nodig heeft om een hypothese op te stellen. \newline
+Snelheid is uiteraard een van de belangrijkste voorwaarden om een goed algoritme te zijn. Je wilt bijvoorbeeld geen 2 minuten wachten vooraleer je te weten komt wat de computer dacht dat je aan het spelen was. Een programma bestaat uit verschillende delen. Niet alle onderdelen van een programma zijn relevant voor deze bachelorproef. Zo heb je bijvoorbeeld het inlezen van de data. Dat proces zal evenveel tijd in beslag nemen voor logistische regressie als voor vector support machine doordat dezelfde data gebruikt worden voor beiden. Een tweede deel is natuurlijk de declaratie van variabelen en objecten dit gebeurt zodanig snel dat dit irrelevant is.\newline
+Dan heb je het leerproces of optimalisatieproces van een algoritme. Dat is wel belangrijk want hiermee kan het verschil gemaakt worden. Daarvoor gebruiken we de klasse Stopwatch die in het .NET framework voorzien is. Die wordt gestart net voor de start van het leerproces en gestopt net erna. Op deze manier kunnen we precies meten hoelang het algoritme nodig heeft om een hypothese op te stellen. \newline
 We hebben ook nog een gedeelte waar we een nieuwe vector laten voorspellen maar ook dit is enkel maar een wiskundige berekening wat voor de computer praktisch niets inhoudt. 
 
 \subsubsection{F-score}
 \label{sec:fscore}
-Om een idee te hebben hoe goed een algoritme voorspellingen doet kan je een simpele test doen en kijken hoeveel procent van de testdataset correct werd voorspelt. Er is echter een manier om nog correcter weer te geven hoe goed een algoritme effectief is. Dit kan aan de hand van de F-score. \newline
-Wanneer een algoritme een voorspelling doet zijn er vier mogelijke uitkomsten onderverdeelt. Hieronder ziet u de correcte en foute resultaten:
+Om een idee te hebben hoe goed een algoritme voorspellingen doet, kan je een simpele test doen en kijken hoeveel procent van de testdataset correct werd voorspeld. Er is echter een manier om nog correcter weer te geven hoe goed een algoritme effectief is. Dat kan aan de hand van de F-score. \newline
+Wanneer een algoritme een voorspelling doet zijn er vier mogelijke uitkomsten onderverdeeld. Hieronder ziet u de correcte en foute resultaten:
 \begin{itemize}
 	\item Correcte voorspellingen
 	\begin{itemize}
@@ -256,7 +264,7 @@ Wanneer een algoritme een voorspelling doet zijn er vier mogelijke uitkomsten on
 \end{itemize}
 
 Om de F-score te begrijpen moeten er nog 2 begrippen uitgelegd worden. Als eerste zullen we beginnen met precisie. \newline 
-Als je de effectieve juiste positieve voorspelling ($\:$A$\:$) deelt door het totaal aantal positieve voorspelling (dus inclusief positieve voorspellingen van de hypothese maar die eigenlijk negatief had moeten zijn). Dan bekom je een percentage die de precisie uitdrukt. $$precisie\:=\:\frac{A}{A\:+\:C}$$
+Als je de effectieve juiste positieve voorspelling ($\:$A$\:$) deelt door het totaal aantal positieve voorspellingen (dus inclusief positieve voorspellingen van de hypothese maar die eigenlijk negatief hadden moeten zijn), dan bekom je een percentage die de precisie uitdrukt. $$precisie\:=\:\frac{A}{A\:+\:C}$$
 
 Rappel is een tweede begrip die eveneens een percentage uitdrukt. Dan wil je weten van alle positieve voorbeelden in de dataset ($\:$A$\:$+$\:$D$\:$) hoeveel de hypothese ook als positief heeft teruggegeven ($\:$A$\:$). $$rappel\:=\: \frac{A}{A\:+\:D}$$
 
